@@ -14,7 +14,7 @@
     "allowlist": {
       "window": {
         "all": true,
-        "center": false,
+        "center": true,
         "close": false,
         "create": false,
         "hide": false,
@@ -39,12 +39,12 @@
         "setMinSize": false,
         "setMinimizable": false,
         "setPosition": false,
-        "setResizable": false,
+        "setResizable": true,
         "setSize": false,
         "setSkipTaskbar": false,
         "setTitle": false,
         "show": false,
-        "startDragging": false,
+        "startDragging": true,
         "unmaximize": false,
         "unminimize": false
       },
