@@ -20,6 +20,7 @@ textarea {
 textarea::placeholder {
   color: var(--placeholder-Color, '#ffe6e6');
   font-size: 150%;
+  opacity: 0.5;
 }
 
 #exitPopup {
@@ -32,4 +33,21 @@ textarea::placeholder {
   left: 50%;
   transform: translate(-50%, -50%);
   display: none;
+}
+
+.statsArea {
+  z-index: 2;
+  position: absolute;
+  background-color: green;
+  width: 12%;
+  height: 4%;
+  bottom: 0;
+  right: 0;
+}
+
+#stats {
+  display: flex;
+  justify-content: center; /* Centrer horizontalement */
+  align-items: center;
+  height: 100%;
 }
