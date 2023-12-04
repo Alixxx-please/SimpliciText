@@ -8,7 +8,10 @@ async function shortcuts() {
         if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === 'l') {
             e.preventDefault();
             const textarea = document.getElementById('textarea');
-            if (textarea) {
+            const stats = document.getElementById('stats');
+            if (textarea && stats) {
+                stats.style.color = '#252525';
+                textarea.style.caretColor = '#252525';
                 textarea.style.color = '#252525';
                 textarea.style.backgroundColor = '#ffe6e6'
                 textarea.style.setProperty('--placeholder-color', '#252525')
@@ -16,7 +19,10 @@ async function shortcuts() {
         } else if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === 'd') {
             e.preventDefault();
             const textarea = document.getElementById('textarea');
-            if (textarea) {
+            const stats = document.getElementById('stats');
+            if (textarea && stats) {
+                stats.style.color = '#ffe6e6';
+                textarea.style.caretColor = '#ffe6e6';
                 textarea.style.color = '#ffe6e6';
                 textarea.style.backgroundColor = '#252525'
                 textarea.style.setProperty('--placeholder-color', '#ffe6e6')
@@ -73,7 +79,7 @@ async function exitPopup() {
 
                 timer = setTimeout(async function() {
                     await exit()
-                }, 3000);
+                }, 2500);
                 interval = setInterval(frame, 30); // Exécute la fonction frame toutes les 30 millisecondes
                 function frame() {
                     if (width >= 100) {

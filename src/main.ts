@@ -23,9 +23,9 @@ function statistics() {
 
         let now = new Date(); // Get the current time inside the updateCharacterCount function
         let elapsedTime = now.getTime() - startTime.getTime();
-        let seconds = Math.floor((elapsedTime / 1000) % 60); // Calculate the seconds
-        let minutes = Math.floor((elapsedTime / 1000 / 60) % 60); // Calculate the minutes
-        let hours = Math.floor((elapsedTime / 1000 / 60 / 60) % 24); // Calculate the hours
+        let seconds = Math.floor((elapsedTime / 1000) % 60).toString().padStart(2, '0'); // Calculate the seconds and add leading zeros if necessary
+        let minutes = Math.floor((elapsedTime / 1000 / 60) % 60).toString().padStart(2, '0'); // Calculate the minutes and add leading zeros if necessary
+        let hours = Math.floor((elapsedTime / 1000 / 60 / 60) % 24).toString().padStart(2, '0'); // Calculate the hours and add leading zeros if necessary
 
         if (stats) {
             stats.innerHTML = `${count} chr  |  ${hours}:${minutes}:${seconds}`; // Update the stats element with the formatted time
