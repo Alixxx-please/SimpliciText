@@ -4,11 +4,6 @@ body, html {
   padding: 0;
 }
 
-body::--webkit-scrollbar {
-  display: none;
-  scrollbar-width: none;
-}
-
 textarea {
   z-index: 1;
   resize: none;
@@ -22,12 +17,16 @@ textarea {
   padding-top: 5%;
   border: none;
   caret-color: #ffe6e6;
+  font-family: 'Consolas', monospace;
+  font-size: medium;
 }
 
 textarea::placeholder {
   color: var(--placeholder-Color, '#ffe6e6');
   font-size: 150%;
   opacity: 0.5;
+  font-family: 'Consolas', monospace;
+  font-size: medium;
 }
 
 #exitPopup {
@@ -49,4 +48,10 @@ textarea::placeholder {
   right: 1%;
   color: #ffe6e6;
   text-align: right;
+  font-family: 'Consolas', monospace;
+  font-size: medium;
+  user-select: none;
+  -webkit-user-select: none;  /* Chrome, Safari, Opera */
+  -moz-user-select: none;     /* Firefox */
+  -ms-user-select: none;  
 }

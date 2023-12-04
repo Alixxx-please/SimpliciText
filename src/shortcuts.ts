@@ -3,7 +3,7 @@ import { sep } from '@tauri-apps/api/path';
 import { exit } from '@tauri-apps/api/process';
 
 async function shortcuts() {
-    // Ctrl + Shift + L / D = light / dark mode
+    // Ctrl + Alt + L / D = light / dark mode
     document.addEventListener('keydown', async function(e) {
         if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === 'l') {
             e.preventDefault();
