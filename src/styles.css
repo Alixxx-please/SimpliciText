@@ -42,20 +42,11 @@ textarea::placeholder {
   display: none;
 }
 
-.statsArea {
+#stats {
   z-index: 2;
   position: absolute;
-  bottom: 0;
-  right: 0;
-}
-
-#stats {
-  display: inline-block;
-  bottom: 2%;
-  right: 2%;
-  overflow: hidden;
+  bottom: 1%;
+  right: 1%;
   color: #ffe6e6;
-  white-space: nowrap;
   text-align: right;
-  word-wrap: break-word;
 }
