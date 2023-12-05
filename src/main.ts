@@ -1,3 +1,4 @@
+import { isPermissionGranted, requestPermission, sendNotification } from '@tauri-apps/api/notification';
 import { shortcuts } from './shortcuts';
 import { exitPopup } from './shortcuts';
 import { save } from './shortcuts';
@@ -36,7 +37,22 @@ function statistics() {
     setInterval(updateCharacterCount, 1000); // Call updateCharacterCount every second
 }
 
+async function notificationPopup() {
+    let permissionGranted = await isPermissionGranted();
+    if (!permissionGranted) {
+        const permission = await requestPermission();
+        permissionGranted = permission === 'granted';
+    }
+    if (permissionGranted) {
+        sendNotification('Tauri is awesome!');
+        sendNotification({ title: 'TAURI', body: 'Tauri is awesome!' });
+    }
+}
+
+
+
 statistics();
+await notificationPopup()
 
 await shortcuts();
 await exitPopup();

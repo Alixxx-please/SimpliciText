@@ -13,16 +13,16 @@
   "tauri": {
     "allowlist": {
       "window": {
-        "all": true,
+        "all": false,
         "center": true,
-        "close": false,
+        "close": true,
         "create": false,
-        "hide": false,
+        "hide": true,
         "maximize": false,
-        "minimize": false,
+        "minimize": true,
         "print": false,
-        "requestUserAttention": false,
-        "setAlwaysOnTop": false,
+        "requestUserAttention": true,
+        "setAlwaysOnTop": true,
         "setClosable": false,
         "setContentProtected": false,
         "setCursorGrab": false,
@@ -39,14 +39,17 @@
         "setMinSize": false,
         "setMinimizable": false,
         "setPosition": false,
-        "setResizable": true,
+        "setResizable": false,
         "setSize": false,
         "setSkipTaskbar": false,
-        "setTitle": false,
-        "show": false,
+        "setTitle": true,
+        "show": true,
         "startDragging": true,
         "unmaximize": false,
         "unminimize": false
+      },
+      "notification": {
+        "all": true
       },
       "fs": {
         "all": true,
