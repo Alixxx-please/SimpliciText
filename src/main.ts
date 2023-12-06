@@ -50,7 +50,6 @@ async function notificationPopup() {
 }
 
 
-
 statistics();
 await notificationPopup()
 

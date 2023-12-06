@@ -3,4 +3,4 @@
 
 // bloc note :
 // pouvoir changer le titre de la fenêtre en le nom du fichier
-// raccourci pour alwaysOnTop
+// ctrl alt p pour preview markdown

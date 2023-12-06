@@ -1,12 +1,18 @@
 import { writeTextFile, exists, createDir, BaseDirectory } from '@tauri-apps/api/fs';
+import { appWindow } from "@tauri-apps/api/window";
 import { sep } from '@tauri-apps/api/path';
 import { exit } from '@tauri-apps/api/process';
+
+
+let alwaysOnTop = true;
+
 
 async function shortcuts() {
     // Ctrl + Alt + L / D = light / dark mode
     document.addEventListener('keydown', async function(e) {
         if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === 'l') {
             e.preventDefault();
+
             const textarea = document.getElementById('textarea');
             const stats = document.getElementById('stats');
             if (textarea && stats) {
@@ -18,6 +24,7 @@ async function shortcuts() {
             }
         } else if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === 'd') {
             e.preventDefault();
+
             const textarea = document.getElementById('textarea');
             const stats = document.getElementById('stats');
             if (textarea && stats) {
@@ -30,9 +37,21 @@ async function shortcuts() {
         }
     })
 
+    // Ctrl + Alt + T = always on top
+    document.addEventListener('keydown', async function(e) {
+        if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === 't') {
+            e.preventDefault();
+
+      
+            alwaysOnTop = !alwaysOnTop;
+            await appWindow.setAlwaysOnTop(!alwaysOnTop);
+        }
+    })
+    
+
     // Prevents right click
-    document.addEventListener("contextmenu", (event) => {
-        event.preventDefault();
+    document.addEventListener("contextmenu", (e) => {
+        e.preventDefault();
     });
 }
 
@@ -46,10 +65,11 @@ async function save() {
     }
       
     let textarea = document.getElementById('textarea');
-    let fileName = ''
+    let fileName = '';
 
-    textarea?.addEventListener('input', function() {
-        fileName = (textarea as HTMLTextAreaElement)?.value.substring(0, 6) ?? 'untitled';
+    textarea?.addEventListener('input', async function() {
+        fileName = (textarea as HTMLTextAreaElement)?.value.substring(0, 8) ?? 'untitled';
+        await appWindow.setTitle(fileName ?? 'wysiwyg');
         console.log(fileName);
     });
 
@@ -107,7 +127,6 @@ async function exitPopup() {
                 width = 0; // Reset the width to zero
                 
             }
-            
         }
     });
 }
