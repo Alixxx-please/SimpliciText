@@ -4,7 +4,9 @@ import { sep } from '@tauri-apps/api/path';
 import { exit } from '@tauri-apps/api/process';
 
 
+
 let alwaysOnTop = true;
+let split = false;
 
 
 async function shortcuts() {
@@ -13,26 +15,30 @@ async function shortcuts() {
         if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === 'l') {
             e.preventDefault();
 
-            const textarea = document.getElementById('textarea');
+            const textarea = document.getElementById('textInput');
             const stats = document.getElementById('stats');
-            if (textarea && stats) {
+            const markdown = document.getElementById('markdownOutput');
+            if (textarea && stats && markdown) {
+                markdown.style.backgroundColor = '#fff9f5';
+                markdown.style.color = '#252525';
                 stats.style.color = '#252525';
                 textarea.style.caretColor = '#252525';
                 textarea.style.color = '#252525';
-                textarea.style.backgroundColor = '#ffe6e6'
+                textarea.style.backgroundColor = '#fff4eb'
                 textarea.style.setProperty('--placeholder-color', '#252525')
             }
         } else if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === 'd') {
             e.preventDefault();
 
-            const textarea = document.getElementById('textarea');
+            const textarea = document.getElementById('textInput');
             const stats = document.getElementById('stats');
-            if (textarea && stats) {
-                stats.style.color = '#ffe6e6';
-                textarea.style.caretColor = '#ffe6e6';
-                textarea.style.color = '#ffe6e6';
+            const markdown = document.getElementById('markdownOutput');
+            if (textarea && stats && markdown) {
+                stats.style.color = '#fff4eb';
+                textarea.style.caretColor = '#fff4eb';
+                textarea.style.color = '#fff4eb';
                 textarea.style.backgroundColor = '#252525'
-                textarea.style.setProperty('--placeholder-color', '#ffe6e6')
+                textarea.style.setProperty('--placeholder-color', '#fff4eb')
             }
         }
     })
@@ -47,7 +53,106 @@ async function shortcuts() {
             await appWindow.setAlwaysOnTop(!alwaysOnTop);
         }
     })
-    
+
+    // Ctrl + Alt + Up / Down / Left / Right = split screen to preview markdown
+    document.addEventListener('keydown', async function(e) {
+        if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === 'arrowup') {
+            e.preventDefault();
+
+            const textarea = document.getElementById('textInput');
+            const markdownOutput = document.getElementById('markdownOutput');
+            split = !split;
+            if (textarea && markdownOutput && split) {
+                textarea.style.bottom = ''; // Réinitialise la propriété 'bottom' de textarea
+                markdownOutput.style.top = '';
+                markdownOutput.style.bottom = '0';
+                markdownOutput.style.display = 'block';
+                textarea.style.width = '100%';
+                markdownOutput.style.width = '100%';
+                textarea.style.height = '50%';
+                markdownOutput.style.height = '50%';
+            } else if (textarea && markdownOutput && !split) {
+                textarea.style.width = '100%';
+                markdownOutput.style.width = '0%';
+                textarea.style.height = '100%';
+                markdownOutput.style.height = '0%';
+                markdownOutput.style.bottom = '';
+                markdownOutput.style.display = 'none';
+            }
+        } else if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === 'arrowdown') {
+            e.preventDefault();
+
+            const textarea = document.getElementById('textInput');
+            const markdownOutput = document.getElementById('markdownOutput');
+            split = !split;
+            if (textarea && markdownOutput && split) {
+                textarea.style.bottom = '0'
+                markdownOutput.style.top = '0';
+                markdownOutput.style.display = 'block';
+                textarea.style.width = '100%';
+                markdownOutput.style.width = '100%';
+                textarea.style.height = '50%';
+                markdownOutput.style.height = '50%';
+            } else if (textarea && markdownOutput && !split) {
+                markdownOutput.style.top = '';
+                textarea.style.width = '100%';
+                markdownOutput.style.width = '0%';
+                textarea.style.height = '100%';
+                markdownOutput.style.height = '0%';
+                markdownOutput.style.display = 'none';
+            }
+        } else if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === 'arrowleft') {
+            e.preventDefault();
+
+            const textarea = document.getElementById('textInput');
+            const markdownOutput = document.getElementById('markdownOutput');
+            split = !split;
+            if (textarea && markdownOutput && split) {
+                textarea.style.right = ''
+                markdownOutput.style.left = '';
+                textarea.style.left = '0'
+                markdownOutput.style.right = '0';
+                markdownOutput.style.display = 'block';
+                textarea.style.width = '50%';
+                markdownOutput.style.width = '50%';
+                textarea.style.height = '100%';
+                markdownOutput.style.height = '100%';
+            } else if (textarea && markdownOutput && !split) {
+                textarea.style.right = '';
+                markdownOutput.style.left = '';
+                textarea.style.width = '100%';
+                markdownOutput.style.width = '0%';
+                textarea.style.height = '100%';
+                markdownOutput.style.height = '0%';
+                markdownOutput.style.right = '';
+                markdownOutput.style.display = 'none';
+            }
+        } else if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === 'arrowright') {
+            e.preventDefault();
+
+            const textarea = document.getElementById('textInput');
+            const markdownOutput = document.getElementById('markdownOutput');
+            split = !split;
+            if (textarea && markdownOutput && split) {
+                textarea.style.left = ''
+                markdownOutput.style.right = '';
+                textarea.style.right = '0'
+                markdownOutput.style.left = '0';
+                markdownOutput.style.display = 'block';
+                textarea.style.width = '50%';
+                markdownOutput.style.width = '50%';
+                textarea.style.height = '100%';
+                markdownOutput.style.height = '100%';
+            } else if (textarea && markdownOutput && !split) {
+                markdownOutput.style.left = '';
+                textarea.style.width = '100%';
+                markdownOutput.style.width = '0%';
+                textarea.style.height = '100%';
+                markdownOutput.style.height = '0%';
+                markdownOutput.style.display = 'none';
+            }
+        }
+    })
 
     // Prevents right click
     document.addEventListener("contextmenu", (e) => {
@@ -64,7 +169,7 @@ async function save() {
         console.log('wysiwyg directory exists');
     }
       
-    let textarea = document.getElementById('textarea');
+    let textarea = document.getElementById('textInput');
     let fileName = '';
 
     textarea?.addEventListener('input', async function() {
@@ -99,7 +204,7 @@ async function exitPopup() {
 
                 timer = setTimeout(async function() {
                     await exit()
-                }, 2500);
+                }, 2000);
                 interval = setInterval(frame, 30); // Exécute la fonction frame toutes les 30 millisecondes
                 function frame() {
                     if (width >= 100) {
@@ -125,7 +230,6 @@ async function exitPopup() {
                 clearTimeout(timer);
                 clearInterval(interval);
                 width = 0; // Reset the width to zero
-                
             }
         }
     });

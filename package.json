@@ -10,7 +10,8 @@
     "tauri": "tauri"
   },
   "dependencies": {
-    "@tauri-apps/api": "^1.5.1"
+    "@tauri-apps/api": "^1.5.1",
+    "marked": "^11.0.0"
   },
   "devDependencies": {
     "@tauri-apps/cli": "^1.5.6",

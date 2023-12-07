@@ -1,11 +1,14 @@
-import { isPermissionGranted, requestPermission, sendNotification } from '@tauri-apps/api/notification';
 import { shortcuts } from './shortcuts';
 import { exitPopup } from './shortcuts';
 import { save } from './shortcuts';
+import { achievements } from './achievements';
+import { marked } from 'marked';
+
+
 
 function statistics() {
     // Character counter
-    let textarea = document.getElementById('textarea') as HTMLTextAreaElement;
+    let textarea = document.getElementById('textInput') as HTMLTextAreaElement;
     let stats = document.getElementById('stats');
 
     let startTime = new Date(); // Move the startTime outside of the setInterval function
@@ -37,22 +40,22 @@ function statistics() {
     setInterval(updateCharacterCount, 1000); // Call updateCharacterCount every second
 }
 
-async function notificationPopup() {
-    let permissionGranted = await isPermissionGranted();
-    if (!permissionGranted) {
-        const permission = await requestPermission();
-        permissionGranted = permission === 'granted';
-    }
-    if (permissionGranted) {
-        sendNotification('Tauri is awesome!');
-        sendNotification({ title: 'TAURI', body: 'Tauri is awesome!' });
+const textInput = document.getElementById('textInput') as HTMLTextAreaElement;
+const markdownOutput = document.getElementById('markdownOutput');
+
+async function updateText() {
+    const markdownText = textInput.value;
+    const htmlText = await marked(markdownText);
+    if (markdownOutput) {
+        markdownOutput.innerHTML = htmlText;
     }
 }
-
+textInput.addEventListener('input', updateText);
+await updateText();
 
 statistics();
-await notificationPopup()
 
 await shortcuts();
 await exitPopup();
 await save();
+await achievements();

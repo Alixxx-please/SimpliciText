@@ -36,8 +36,9 @@ textarea::placeholder {
   width: 0;
   height: 30px;
   top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  left: 0;
+  right: 0;
+  margin: auto;
   display: none;
 }
 
@@ -54,4 +55,19 @@ textarea::placeholder {
   -webkit-user-select: none;  /* Chrome, Safari, Opera */
   -moz-user-select: none;     /* Firefox */
   -ms-user-select: none;  
+}
+
+#markdownOutput {
+  z-index: 1;
+  font-family: 'Consolas', monospace;
+  position: absolute;
+  background-color: #232323;
+  color: #ffe6e6;
+  display: none;
+  padding-left: 2%;
+  padding-top: 1%;
+  width: 0;
+  height: 0;
+  box-sizing: border-box;
+  overflow: auto;
 }
