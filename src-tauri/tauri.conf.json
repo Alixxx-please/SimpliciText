@@ -82,9 +82,6 @@
         "icons/icon.ico"
       ]
     },
-    "security": {
-      "csp": null
-    },
     "windows": [
       {
         "fullscreen": false,
@@ -92,8 +89,10 @@
         "title": "wysiwyg",
         "width": 800,
         "height": 600,
-        "titleBarStyle": "Overlay"
+        "titleBarStyle": "Overlay",
+        "transparent": false
       }
-    ]
+    ],
+    "macOSPrivateApi": true
   }
 }

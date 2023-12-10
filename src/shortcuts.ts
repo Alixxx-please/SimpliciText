@@ -195,6 +195,30 @@ async function shortcuts() {
     textarea.addEventListener('input', updateStats);
     setInterval(updateStats, 1000);
 
+    // Ctrl + Alt + + / - changes text size
+    document.addEventListener('keydown', (e) => {
+        if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === '+') {
+            e.preventDefault();
+
+            const textarea = document.getElementById('textInput');
+            if (textarea) {
+                const fontSize = parseFloat(window.getComputedStyle(textarea, null).getPropertyValue('font-size'));
+                textarea.style.fontSize = `${fontSize + 1}px`;
+            }
+        } else if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === '-') {
+            e.preventDefault();
+
+            if (textarea) {
+                const fontSize = parseFloat(window.getComputedStyle(textarea, null).getPropertyValue('font-size'));
+                textarea.style.fontSize = `${fontSize - 1}px`;
+            }
+        } else if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === '+' && e.key.toLocaleLowerCase() === '-') {
+            e.preventDefault();
+             
+            textarea.style.fontSize = '16px';      
+        }
+    });
+
     // Prevents right click
     document.addEventListener("contextmenu", (e) => {
         e.preventDefault();

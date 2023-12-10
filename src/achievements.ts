@@ -9,8 +9,12 @@
 // ctrl + alt + h = help page
 // faire propre la barre de quitter, raccourci hold escape
 // (r)ouvrir fichiers récents
+// pouvoir lancer l'éditeur depuis le terminal (simplicitext / st %filePath%)
 // avoir plusieurs onglets
 // bug, quand pas focus et qu'on tente de déplacer fenêtre on peut, mais quand focus on peut pas déplacer fenêtre
+
+// COMPTEUR DE LIGNE OPTIONNEL
+// MODE TRANSPARENT AVEC FLOU POUR POUVOIR LIRE LE TEXTE
 
 // traduction
 // ia pour prochain mot, apprend de ce que l'user écrit

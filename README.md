@@ -14,6 +14,8 @@ Here, `Ctrl + Alt` is your best friend! There are some exceptions but the majori
 - `Ctrl + Alt + S` a toggle shortcut to show alternative stats in the bottom right.
 - `Ctrl + Alt + H` feeling lost? This will show a help page with everything you need to know.
 - `Ctrl + Alt + Up / Down / Left / Right` can look confusing but really isn't. Split the editor in the direction of your choice to have a quick look at your Markdown text.
+- `Ctrl + Alt + + / -` lets you enlarge or reduce the text, as simple as that.
+    - `Ctrl + Alt + + + -` his big brother, resets the text size.
 
 Some other notable features which doesn't quite use the same shortcuts are:
 - __**Markdown**__ support! Use the arrow keys shortcut to preview it.
