@@ -7,6 +7,8 @@
 
 // bloc note :
 // ctrl + alt + h = help page
+// (r)ouvrir fichiers récents
+// avoir plusieurs onglets
 // bug, quand pas focus et qu'on tente de déplacer fenêtre on peut, mais quand focus on peut pas déplacer fenêtre
 
 // traduction
