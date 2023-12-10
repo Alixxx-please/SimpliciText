@@ -1,4 +1,4 @@
-<center>wysiwyg</center>
+wysiwyg>
 
 A minimal text editor
 
