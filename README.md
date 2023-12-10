@@ -1,4 +1,4 @@
-wysiwyg>
+# wysiwyg
 
 A minimal text editor
 
