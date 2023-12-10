@@ -1,47 +1,25 @@
 import { shortcuts } from './shortcuts';
 import { exitPopup } from './shortcuts';
-import { save } from './shortcuts';
 import { achievements } from './achievements';
 import { marked } from 'marked';
+import { writeTextFile, exists, createDir, BaseDirectory, removeFile } from '@tauri-apps/api/fs';
+import { appWindow } from "@tauri-apps/api/window";
+import { sep } from '@tauri-apps/api/path';
 
 
-
-function statistics() {
-    // Character counter
-    let textarea = document.getElementById('textInput') as HTMLTextAreaElement;
-    let stats = document.getElementById('stats');
-
-    let startTime = new Date(); // Move the startTime outside of the setInterval function
-    function updateTimer() {
-        // Code to update the timer
-    }
-
-    setInterval(updateTimer, 1000);
-
-    function updateCharacterCount() {
-        let string = textarea?.value ?? '';
-        let count = string.length;
-        if (stats) {
-            stats.innerHTML = `${count} chr`;
-        }
-
-        let now = new Date(); // Get the current time inside the updateCharacterCount function
-        let elapsedTime = now.getTime() - startTime.getTime();
-        let seconds = Math.floor((elapsedTime / 1000) % 60).toString().padStart(2, '0'); // Calculate the seconds and add leading zeros if necessary
-        let minutes = Math.floor((elapsedTime / 1000 / 60) % 60).toString().padStart(2, '0'); // Calculate the minutes and add leading zeros if necessary
-        let hours = Math.floor((elapsedTime / 1000 / 60 / 60) % 24).toString().padStart(2, '0'); // Calculate the hours and add leading zeros if necessary
-
-        if (stats) {
-            stats.innerHTML = `${count} chr  |  ${hours}:${minutes}:${seconds}`; // Update the stats element with the formatted time
-        }
-    }
-
-    textarea.addEventListener('input', updateCharacterCount);
-    setInterval(updateCharacterCount, 1000); // Call updateCharacterCount every second
-}
 
 const textInput = document.getElementById('textInput') as HTMLTextAreaElement;
 const markdownOutput = document.getElementById('markdownOutput');
+
+let date = new Date();
+let year = date.getFullYear();
+let month = (date.getMonth() + 1).toString().padStart(2, '0');
+let day = date.getDate().toString().padStart(2, '0');
+let hours = date.getHours().toString().padStart(2, '0');
+let minutes = date.getMinutes().toString().padStart(2, '0');
+let seconds = date.getSeconds().toString().padStart(2, '0');
+let firstId = `${year}${month}${day}T${hours};${minutes};${seconds}`;
+
 
 async function updateText() {
     const markdownText = textInput.value;
@@ -51,11 +29,48 @@ async function updateText() {
     }
 }
 textInput.addEventListener('input', updateText);
+
+
+async function autoSave() {
+    if (!await exists('wysiwyg', { dir: BaseDirectory.Document })) {
+        await createDir('wysiwyg', { dir: BaseDirectory.Document, recursive: true });
+    }
+
+    document.addEventListener('input', async () => {
+        await appWindow.setTitle(textInput.value.substring(0, 8));
+        let fileName = textInput.value.substring(0, 8);
+
+        if (textInput.value.length < 8 && textInput.value.length > 0) {
+            let date = new Date();
+            let year = date.getFullYear();
+            let month = (date.getMonth() + 1).toString().padStart(2, '0');
+            let day = date.getDate().toString().padStart(2, '0');
+            let hours = date.getHours().toString().padStart(2, '0');
+            let minutes = date.getMinutes().toString().padStart(2, '0');
+            let seconds = date.getSeconds().toString().padStart(2, '0');
+            let secondId = `${year}${month}${day}T${hours};${minutes};${seconds}`;
+
+            if (await exists(`wysiwyg${sep}${firstId}.md`, { dir: BaseDirectory.Document })) {
+                await removeFile(`wysiwyg${sep}${firstId}.md`, { dir: BaseDirectory.Document });
+                await writeTextFile(`wysiwyg${sep}${secondId}.md`, `${textInput?.value}`, { dir: BaseDirectory.Document });
+                firstId = secondId; // Update the firstId variable with the new id
+            } else {
+                await writeTextFile(`wysiwyg${sep}${firstId}.md`, `${textInput?.value}`, { dir: BaseDirectory.Document });
+            }
+        } else if (textInput.value.length >= 8) {
+            if (await exists(`wysiwyg${sep}${firstId}.md`, { dir: BaseDirectory.Document })) {
+                await removeFile(`wysiwyg${sep}${firstId}.md`, { dir: BaseDirectory.Document });
+            }
+            await writeTextFile(`wysiwyg${sep}${fileName}.md`, `${textInput?.value}`, { dir: BaseDirectory.Document });
+            firstId = fileName;
+        }
+    })
+}
+
+
+
 await updateText();
-
-statistics();
-
 await shortcuts();
 await exitPopup();
-await save();
+await autoSave();
 await achievements();

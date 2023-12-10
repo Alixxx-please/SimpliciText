@@ -3,9 +3,15 @@
 // faire un speedrun d'un truc, commence dès l'ouverture de l'app
 // trouver l'endroit caché ; faire un petit carré invisible où personne ne clique, si tu le trouve achivement
 // un achievement simple pour montrer qu'il y en a
+// faire un raccourci énorme (Who in their right mind uses this one??)
 
 // bloc note :
-// images drag & drop
+// ctrl + alt + h = help page
+// bug, quand pas focus et qu'on tente de déplacer fenêtre on peut, mais quand focus on peut pas déplacer fenêtre
+
+// traduction
+// ia pour prochain mot, apprend de ce que l'user écrit
+// ouvrir avec wysiwyg quand clic droit sur fichiers textes
 import { isPermissionGranted, requestPermission, sendNotification } from '@tauri-apps/api/notification';
 import { appWindow } from '@tauri-apps/api/window';
 import { Options } from '@tauri-apps/api/notification';

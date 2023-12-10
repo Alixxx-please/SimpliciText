@@ -1,12 +1,14 @@
-import { writeTextFile, exists, createDir, BaseDirectory } from '@tauri-apps/api/fs';
-import { appWindow } from "@tauri-apps/api/window";
-import { sep } from '@tauri-apps/api/path';
 import { exit } from '@tauri-apps/api/process';
+import { appWindow } from "@tauri-apps/api/window";
 
 
 
 let alwaysOnTop = true;
+let anotherElapsedTime = new Date()
 let split = false;
+let toggleStats = false;
+let textarea = document.getElementById('textInput') as HTMLTextAreaElement;
+let stats = document.getElementById('stats');
 
 
 async function shortcuts() {
@@ -154,40 +156,50 @@ async function shortcuts() {
         }
     })
 
+    // Ctrl + Alt + S = change stats
+    document.addEventListener('keydown', async function(e) {
+        if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === 's') {
+            e.preventDefault();
+
+            toggleStats = !toggleStats;
+        }
+    })
+
+    function updateStats() {
+        let string = textarea?.value;
+        let chrCount = string.length;
+        let wordCount = string.split(/\s+/).filter(word => word !== '');
+        if (string === '') {
+            wordCount = [];
+        }
+
+        let startTime = new Date();
+        let elapsedTime = new Date().getTime() - anotherElapsedTime.getTime();
+        let elapsedSeconds = Math.floor((elapsedTime / 1000) % 60).toString().padStart(2, '0');
+        let elapsedMinutes = Math.floor((elapsedTime / 1000 / 60) % 60).toString().padStart(2, '0');
+        let elapsedHours = Math.floor((elapsedTime / 1000 / 60 / 60) % 24).toString().padStart(2, '0');
+        let currentHour = startTime.getHours().toString().padStart(2, '0');
+        let currentMinute = startTime.getMinutes().toString().padStart(2, '0');
+        let currentSecond = startTime.getSeconds().toString().padStart(2, '0');
+
+        if (stats && !toggleStats) {
+            stats.innerHTML = `${chrCount} chr  |  ${elapsedHours}:${elapsedMinutes}:${elapsedSeconds}`;
+        } else if (stats && toggleStats) {
+            if (wordCount.length <= 1) {
+                stats.innerHTML = `${wordCount.length} word  |  ${currentHour}:${currentMinute}:${currentSecond}`;
+            } else if (wordCount.length > 1) {
+                stats.innerHTML = `${wordCount.length} words  |  ${currentHour}:${currentMinute}:${currentSecond}`;
+            }
+        }
+    }
+    textarea.addEventListener('input', updateStats);
+    setInterval(updateStats, 1000);
+
     // Prevents right click
     document.addEventListener("contextmenu", (e) => {
         e.preventDefault();
     });
 }
-
-
-async function save() {
-    // Ctrl + S = save .md file in /Documents/wysiwyg/ with 6 first letters as file name
-    if (!await exists('wysiwyg', { dir: BaseDirectory.Document })) {
-        await createDir('wysiwyg', { dir: BaseDirectory.Document, recursive: true });
-    } else {
-        console.log('wysiwyg directory exists');
-    }
-      
-    let textarea = document.getElementById('textInput');
-    let fileName = '';
-
-    textarea?.addEventListener('input', async function() {
-        fileName = (textarea as HTMLTextAreaElement)?.value.substring(0, 8) ?? 'untitled';
-        await appWindow.setTitle(fileName ?? 'wysiwyg');
-        console.log(fileName);
-    });
-
-    document.addEventListener('keydown', async function(e) {
-        if (e.ctrlKey && e.key.toLocaleLowerCase() === 's') {
-            e.preventDefault();
-            
-            await writeTextFile(`wysiwyg${sep}${fileName}.md`, `${textarea?.textContent}`, { dir: BaseDirectory.Document });
-            console.log('fichier sauvegardé')
-        }
-    })
-}
-
 
 async function exitPopup() {
     let timer: number
@@ -239,4 +251,3 @@ async function exitPopup() {
 
 export { shortcuts }
 export { exitPopup }
-export { save }
