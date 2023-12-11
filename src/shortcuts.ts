@@ -4,6 +4,7 @@ import { appWindow } from "@tauri-apps/api/window";
 
 
 let alwaysOnTop = true;
+let darkMode = true;
 let anotherElapsedTime = new Date()
 let split = false;
 let toggleStats = false;
@@ -17,6 +18,7 @@ async function shortcuts() {
         if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === 'l') {
             e.preventDefault();
 
+            darkMode = !darkMode;
             const textarea = document.getElementById('textInput');
             const stats = document.getElementById('stats');
             const markdown = document.getElementById('markdownOutput');
@@ -32,6 +34,7 @@ async function shortcuts() {
         } else if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === 'd') {
             e.preventDefault();
 
+            darkMode = !darkMode;
             const textarea = document.getElementById('textInput');
             const stats = document.getElementById('stats');
             const markdown = document.getElementById('markdownOutput');
@@ -212,9 +215,9 @@ async function shortcuts() {
                 const fontSize = parseFloat(window.getComputedStyle(textarea, null).getPropertyValue('font-size'));
                 textarea.style.fontSize = `${fontSize - 1}px`;
             }
-        } else if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === '+' && e.key.toLocaleLowerCase() === '-') {
+        } else if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === '+' && e.key.toLocaleLowerCase() === '-' || e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === '-' && e.key.toLocaleLowerCase() === '+') {
             e.preventDefault();
-             
+
             textarea.style.fontSize = '16px';      
         }
     });
@@ -226,33 +229,12 @@ async function shortcuts() {
 }
 
 async function exitPopup() {
-    let timer: number
-    let width: number = 0
-    let interval: number | undefined
-    
     // Hold Escape = exit
     document.addEventListener('keydown', (e) => {
         if (e.key.toLocaleLowerCase() === 'escape') {
             e.preventDefault();
-            const exitPopup = document.getElementById('exitPopup');
-            if (exitPopup) {
-                exitPopup.style.display = 'block';
-
-                timer = setTimeout(async function() {
-                    await exit()
-                }, 2000);
-                interval = setInterval(frame, 30); // Exécute la fonction frame toutes les 30 millisecondes
-                function frame() {
-                    if (width >= 100) {
-                        clearInterval(interval);
-                    } else {
-                        width++;
-                        if (exitPopup) {
-                            exitPopup.style.width = width + '%';
-                        }
-                    }
-                }
-            }
+            
+            exit();
         }
     });
 
@@ -260,13 +242,8 @@ async function exitPopup() {
     document.addEventListener('keyup', (e) => {
         if (e.key.toLocaleLowerCase() === 'escape') {
             e.preventDefault();
-            const exitPopup = document.getElementById('exitPopup');
-            if (exitPopup) {
-                exitPopup.style.display = 'none';
-                clearTimeout(timer);
-                clearInterval(interval);
-                width = 0; // Reset the width to zero
-            }
+            
+
         }
     });
 }

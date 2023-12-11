@@ -30,8 +30,8 @@ async function updateText() {
 
 
 async function autoSave() {
-    if (!await exists('wysiwyg', { dir: BaseDirectory.Document })) {
-        await createDir('wysiwyg', { dir: BaseDirectory.Document, recursive: true });
+    if (!await exists('SimpliciText', { dir: BaseDirectory.Document })) {
+        await createDir('SimpliciText', { dir: BaseDirectory.Document, recursive: true });
     }
 
     document.addEventListener('input', async () => {
@@ -48,18 +48,18 @@ async function autoSave() {
             let seconds = date.getSeconds().toString().padStart(2, '0');
             let secondId = `${year}${month}${day}T${hours};${minutes};${seconds}`;
 
-            if (await exists(`wysiwyg${sep}${firstId}.md`, { dir: BaseDirectory.Document })) {
-                await removeFile(`wysiwyg${sep}${firstId}.md`, { dir: BaseDirectory.Document });
-                await writeTextFile(`wysiwyg${sep}${secondId}.md`, `${textInput?.value}`, { dir: BaseDirectory.Document });
+            if (await exists(`SimpliciText${sep}${firstId}.md`, { dir: BaseDirectory.Document })) {
+                await removeFile(`SimpliciText${sep}${firstId}.md`, { dir: BaseDirectory.Document });
+                await writeTextFile(`SimpliciText${sep}${secondId}.md`, `${textInput?.value}`, { dir: BaseDirectory.Document });
                 firstId = secondId; // Update the firstId variable with the new id
             } else {
-                await writeTextFile(`wysiwyg${sep}${firstId}.md`, `${textInput?.value}`, { dir: BaseDirectory.Document });
+                await writeTextFile(`SimpliciText${sep}${firstId}.md`, `${textInput?.value}`, { dir: BaseDirectory.Document });
             }
         } else if (textInput.value.length >= 8) {
-            if (await exists(`wysiwyg${sep}${firstId}.md`, { dir: BaseDirectory.Document })) {
-                await removeFile(`wysiwyg${sep}${firstId}.md`, { dir: BaseDirectory.Document });
+            if (await exists(`SimpliciText${sep}${firstId}.md`, { dir: BaseDirectory.Document })) {
+                await removeFile(`SimpliciText${sep}${firstId}.md`, { dir: BaseDirectory.Document });
             }
-            await writeTextFile(`wysiwyg${sep}${fileName}.md`, `${textInput?.value}`, { dir: BaseDirectory.Document });
+            await writeTextFile(`SimpliciText${sep}${fileName}.md`, `${textInput?.value}`, { dir: BaseDirectory.Document });
             firstId = fileName;
         }
     })

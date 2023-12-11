@@ -7,7 +7,7 @@
 
 // bloc note :
 // ctrl + alt + h = help page
-// faire propre la barre de quitter, raccourci hold escape
+// faire propre la barre de quitter, raccourci hold escape (barre rapide puis lente, shake tout les sens à la fin)
 // (r)ouvrir fichiers récents
 // pouvoir lancer l'éditeur depuis le terminal (simplicitext / st %filePath%)
 // avoir plusieurs onglets

@@ -11,7 +11,7 @@ textarea {
   height: 100%;
   box-sizing: border-box;
   position: absolute;
-  background-color: #252525 ;
+  background-color: #252525;
   color: #ffe6e6;
   padding-left: 2%;
   padding-top: 5%;
@@ -31,15 +31,12 @@ textarea::placeholder {
 
 #exitPopup {
   z-index: 2;
-  position: absolute;
-  background-color: red;
-  width: 0;
+  position: fixed;
   height: 30px;
-  top: 50%;
-  left: 0;
-  right: 0;
-  margin: auto;
-  display: none;
+  width: 100%; /* Modifié */
+  top: 50%; 
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 #stats {
