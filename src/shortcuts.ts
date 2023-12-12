@@ -1,5 +1,6 @@
 import { exit } from '@tauri-apps/api/process';
 import { appWindow } from "@tauri-apps/api/window";
+import { marked } from 'marked';
 
 
 
@@ -9,6 +10,7 @@ let anotherElapsedTime = new Date()
 let split = false;
 let toggleStats = false;
 let textarea = document.getElementById('textInput') as HTMLTextAreaElement;
+const markdownOutput = document.getElementById('markdownOutput');
 let stats = document.getElementById('stats');
 
 
@@ -219,6 +221,58 @@ async function shortcuts() {
             e.preventDefault();
 
             textarea.style.fontSize = '16px';      
+        }
+    });
+
+    // Ctrl + Alt + 1-9 = create a new tab
+    let tabContent: { [key: number]: { textarea: string, markdown: string } } = {};
+    let currentTab: number = 1;
+    
+    document.addEventListener('keydown', async (e) => {
+        if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() >= '0' && e.key.toLocaleLowerCase() <= '9') {
+            e.preventDefault();
+
+            const textarea = document.getElementById('textInput') as HTMLTextAreaElement;
+            const markdownText = textarea.value;
+            const htmlText = await marked(markdownText);
+
+            if (textarea) {
+                tabContent[currentTab] = { textarea: textarea.value, markdown: htmlText };
+            }
+
+            const tabNumberManager = parseInt(e.key.toLocaleLowerCase());
+            currentTab = tabNumberManager;
+
+            if (tabContent[tabNumberManager]) {
+                textarea.value = tabContent[tabNumberManager].textarea;
+                if (markdownOutput) {
+                    markdownOutput.innerHTML = tabContent[tabNumberManager].markdown;
+                }
+            } else {
+                textarea.value = '';
+                if (markdownOutput) {
+                    markdownOutput.innerHTML = '';
+                }
+            }
+
+            const number = e.key.toLocaleLowerCase();
+            let tabNumber = document.getElementById('tabNumber')
+            
+            if (tabNumber) {
+                tabNumber.remove();
+                tabNumber = document.createElement('div');
+                tabNumber.id = 'tabNumber';
+                document.body.appendChild(tabNumber);
+
+                tabNumber.style.display = 'block';
+                tabNumber.innerHTML = number;
+
+                setTimeout(() => {
+                    if (tabNumber) {
+                        tabNumber.style.display = 'none';
+                    }
+                }, 1000);
+            }
         }
     });
 

@@ -29,7 +29,7 @@
         "setCursorIcon": false,
         "setCursorPosition": false,
         "setCursorVisible": false,
-        "setDecorations": true,
+        "setDecorations": false,
         "setFocus": false,
         "setFullscreen": false,
         "setIcon": false,

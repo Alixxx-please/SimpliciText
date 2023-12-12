@@ -11,6 +11,7 @@ Doesn't need an internet connection to run. The only time you'll need one is whe
 Here, `Ctrl + Alt` is your best friend! There are some exceptions but the majority of shortcuts use this key combination as a base. Featuring:
 - `Ctrl + Alt + L / D` changes the visual for a light (L) or dark (D) mode.
 - `Ctrl + Alt + T` (off by default) makes the window stay on top, even if you click on another window.
+- `Ctrl + Alt + 1 / 2 / 3 / 4 / 5 / 6 / 7 / 8 / 9 / 0` switches to another tab, with a grand total of 10 different opened tabs at the same time!
 - `Ctrl + Alt + S` a toggle shortcut to show alternative stats in the bottom right.
 - `Ctrl + Alt + H` feeling lost? This will show a help page with everything you need to know.
 - `Ctrl + Alt + Up / Down / Left / Right` can look confusing but really isn't. Split the editor in the direction of your choice to have a quick look at your Markdown text.
