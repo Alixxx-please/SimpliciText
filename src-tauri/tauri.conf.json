@@ -53,7 +53,7 @@
       },
       "fs": {
         "all": true,
-        "scope": ["$DOCUMENT/wysiwyg", "$DOCUMENT/wysiwyg/*"]
+        "scope": ["$DOCUMENT/SimpliciText", "$DOCUMENT/SimpliciText/*"]
       },
       "path": {
         "all": true

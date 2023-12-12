@@ -31,6 +31,7 @@ async function updateText() {
 
 async function autoSave() {
     if (!await exists('SimpliciText', { dir: BaseDirectory.Document })) {
+        console.log('Creating directory');
         await createDir('SimpliciText', { dir: BaseDirectory.Document, recursive: true });
     }
 

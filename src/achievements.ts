@@ -7,12 +7,11 @@
 
 // bloc note :
 // ctrl + alt + h = help page
-// indicateurs lorsque raccourci
+// indicateurs (sonores) lorsque raccourci
 // faire propre la barre de quitter, raccourci hold escape (barre rapide puis lente, shake tout les sens à la fin)
 // (r)ouvrir fichiers récents
 // pouvoir lancer l'éditeur depuis le terminal (simplicitext / st %filePath%)
 // bug, quand pas focus et qu'on tente de déplacer fenêtre on peut, mais quand focus on peut pas déplacer fenêtre
-// bug, quand on split l'écran la zone de texte est un peu surélevée par rapport au markdown
 
 // COMPTEUR DE LIGNE OPTIONNEL
 
