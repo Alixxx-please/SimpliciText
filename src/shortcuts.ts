@@ -24,7 +24,8 @@ async function shortcuts() {
             const textarea = document.getElementById('textInput');
             const stats = document.getElementById('stats');
             const markdown = document.getElementById('markdownOutput');
-            if (textarea && stats && markdown) {
+            const tabNumber = document.getElementById('tabNumber');
+            if (textarea && stats && markdown && tabNumber) {
                 markdown.style.backgroundColor = '#fff9f5';
                 markdown.style.color = '#252525';
                 stats.style.color = '#252525';
@@ -32,6 +33,8 @@ async function shortcuts() {
                 textarea.style.color = '#252525';
                 textarea.style.backgroundColor = '#fff4eb'
                 textarea.style.setProperty('--placeholder-color', '#252525')
+                tabNumber.style.color = '#ffe0e0'
+                tabNumber.style.textShadow = "-2px -2px 0 #202020, 2px -2px 0 #202020, -2px 2px 0 #202020, 2px 2px 0 #202020";
             }
         } else if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === 'd') {
             e.preventDefault();
@@ -40,12 +43,14 @@ async function shortcuts() {
             const textarea = document.getElementById('textInput');
             const stats = document.getElementById('stats');
             const markdown = document.getElementById('markdownOutput');
-            if (textarea && stats && markdown) {
+            const tabNumber = document.getElementById('tabNumber');
+            if (textarea && stats && markdown && tabNumber) {
                 stats.style.color = '#fff4eb';
                 textarea.style.caretColor = '#fff4eb';
                 textarea.style.color = '#fff4eb';
                 textarea.style.backgroundColor = '#252525'
                 textarea.style.setProperty('--placeholder-color', '#fff4eb')
+                tabNumber.style.textShadow = "-2px -2px 0 #fff4eb, 2px -2px 0 #fff4eb, -2px 2px 0 #fff4eb, 2px 2px 0 #fff4eb";
             }
         }
     })

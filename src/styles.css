@@ -18,11 +18,11 @@ textarea {
   box-sizing: border-box;
   position: absolute;
   background-color: #252525;
-  color: #ffe6e6;
+  color: #fff4eb;
   padding-left: 2%;
   padding-top: 5%;
   border: none;
-  caret-color: #ffe6e6;
+  caret-color: #fff4eb;
   font-family: 'Consolas', monospace;
   font-size: 16px;
 }
@@ -50,7 +50,7 @@ textarea::placeholder {
   position: absolute;
   bottom: 1%;
   right: 1%;
-  color: #ffe6e6;
+  color: #fff4eb;
   text-align: right;
   font-family: 'Consolas', monospace;
   font-size: medium;
@@ -86,11 +86,11 @@ textarea::placeholder {
   color: #202020;
   display: none;
   transform-origin: 50% 50%;
-  animation: comeFromUser 0.33s forwards ease-out, stayAndGoBack 0.28s forwards 0.9s;
-  text-shadow: -2px -2px 0 #fff,  
-               2px -2px 0 #fff,
-               -2px 2px 0 #fff,
-               2px 2px 0 #fff;
+  animation: comeFromUser 0.3s forwards ease-out, stayAndGoBack 0.28s forwards 0.9s;
+  text-shadow: -2px -2px 0 #fff4eb,  
+               2px -2px 0 #fff4eb,
+               -2px 2px 0 #fff4eb,
+               2px 2px 0 #fff4eb;
 }
 
 @keyframes comeFromUser {
