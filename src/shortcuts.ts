@@ -12,6 +12,7 @@ let toggleStats = false;
 let textarea = document.getElementById('textInput') as HTMLTextAreaElement;
 const markdownOutput = document.getElementById('markdownOutput');
 let stats = document.getElementById('stats');
+const sfx = new Audio('./assets/sounds/sfx.wav');
 
 
 async function shortcuts() {
@@ -60,7 +61,8 @@ async function shortcuts() {
         if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === 't') {
             e.preventDefault();
 
-      
+            sfx.play();
+
             alwaysOnTop = !alwaysOnTop;
             await appWindow.setAlwaysOnTop(!alwaysOnTop);
         }
@@ -236,6 +238,8 @@ async function shortcuts() {
     document.addEventListener('keydown', async (e) => {
         if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() >= '0' && e.key.toLocaleLowerCase() <= '9') {
             e.preventDefault();
+
+            sfx.play();
 
             const textarea = document.getElementById('textInput') as HTMLTextAreaElement;
             const markdownText = textarea.value;
