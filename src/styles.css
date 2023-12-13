@@ -73,6 +73,7 @@ textarea::placeholder {
   height: 0;
   box-sizing: border-box;
   overflow: auto;
+  animation: slideInTop 0.2s linear forwards;
 }
 
 #tabNumber {
@@ -136,5 +137,41 @@ textarea::placeholder {
   100% {
     transform: translate(-50%, -50%) scale(0.75);
     opacity: 0;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes slideInTop {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0%);
+  }
+}
+
+@keyframes slideInBottom {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
   }
 }

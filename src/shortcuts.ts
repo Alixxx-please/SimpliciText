@@ -77,14 +77,17 @@ async function shortcuts() {
             const markdownOutput = document.getElementById('markdownOutput');
             split = !split;
             if (textarea && markdownOutput && split) {
-                textarea.style.bottom = ''; // Réinitialise la propriété 'bottom' de textarea
+                textarea.style.bottom = '';
                 markdownOutput.style.top = '';
                 markdownOutput.style.bottom = '0';
                 markdownOutput.style.display = 'block';
                 textarea.style.width = '100%';
                 markdownOutput.style.width = '100%';
-                textarea.style.height = '50%';
                 markdownOutput.style.height = '50%';
+                markdownOutput.style.animation = 'slideInTop 0.2s linear forwards';
+                setTimeout(() => {
+                    textarea.style.height = '50%';
+                }, 400);
             } else if (textarea && markdownOutput && !split) {
                 textarea.style.width = '100%';
                 markdownOutput.style.width = '0%';
@@ -105,8 +108,11 @@ async function shortcuts() {
                 markdownOutput.style.display = 'block';
                 textarea.style.width = '100%';
                 markdownOutput.style.width = '100%';
-                textarea.style.height = '50%';
                 markdownOutput.style.height = '50%';
+                markdownOutput.style.animation = 'slideInBottom 0.2s linear forwards';
+                setTimeout(() => {
+                    textarea.style.height = '50%';
+                }, 400);
             } else if (textarea && markdownOutput && !split) {
                 markdownOutput.style.top = '';
                 textarea.style.width = '100%';
@@ -127,10 +133,13 @@ async function shortcuts() {
                 textarea.style.left = '0'
                 markdownOutput.style.right = '0';
                 markdownOutput.style.display = 'block';
-                textarea.style.width = '50%';
                 markdownOutput.style.width = '50%';
                 textarea.style.height = '100%';
                 markdownOutput.style.height = '100%';
+                markdownOutput.style.animation = 'slideInLeft 0.2s linear forwards';
+                setTimeout(() => {
+                    textarea.style.width = '50%';
+                }, 400);
             } else if (textarea && markdownOutput && !split) {
                 textarea.style.right = '';
                 markdownOutput.style.left = '';
@@ -153,10 +162,13 @@ async function shortcuts() {
                 textarea.style.right = '0'
                 markdownOutput.style.left = '0';
                 markdownOutput.style.display = 'block';
-                textarea.style.width = '50%';
                 markdownOutput.style.width = '50%';
                 textarea.style.height = '100%';
                 markdownOutput.style.height = '100%';
+                markdownOutput.style.animation = 'slideInRight 0.2s linear forwards';
+                setTimeout(() => {
+                    textarea.style.width = '50%';
+                }, 400);
             } else if (textarea && markdownOutput && !split) {
                 markdownOutput.style.left = '';
                 textarea.style.width = '100%';
@@ -164,7 +176,7 @@ async function shortcuts() {
                 textarea.style.height = '100%';
                 markdownOutput.style.height = '0%';
                 markdownOutput.style.display = 'none';
-            }
+            }       
         }
     })
 
