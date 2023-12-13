@@ -236,7 +236,7 @@ async function shortcuts() {
                 const fontSize = parseFloat(window.getComputedStyle(textarea, null).getPropertyValue('font-size'));
                 textarea.style.fontSize = `${fontSize - 1}px`;
             }
-        } else if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === '+' && e.key.toLocaleLowerCase() === '-' || e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === '-' && e.key.toLocaleLowerCase() === '+') {
+        } else if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === '=') {
             e.preventDefault();
 
             textarea.style.fontSize = '16px';      

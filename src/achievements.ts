@@ -10,7 +10,7 @@
 // ctrl + alt + h = help page
 // faire propre la barre de quitter, raccourci hold escape (barre rapide puis lente, shake tout les sens à la fin)
 // (r)ouvrir fichiers récents
-// animations quand split screen
+// animations quand split screen à améliorer
 // pouvoir lancer l'éditeur depuis le terminal (simplicitext / st %filePath%)
 // bug, quand pas focus et qu'on tente de déplacer fenêtre on peut, mais quand focus on peut pas déplacer fenêtre
 // pouvoir appliquer les modifs genre taille du texte sur la sélection s'il y en a une, sinon sur tout le texte
