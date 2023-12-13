@@ -26,4 +26,4 @@ dist-ssr
 # Application build folder
 src-tauri/target
 
-/notes.md
+notes.md
