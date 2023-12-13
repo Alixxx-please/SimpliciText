@@ -27,15 +27,16 @@ async function shortcuts() {
             const markdown = document.getElementById('markdownOutput');
             const tabNumber = document.getElementById('tabNumber');
             if (textarea && stats && markdown && tabNumber) {
-                markdown.style.backgroundColor = '#fff9f5';
+                markdown.style.backgroundColor = '#fff4eb';
                 markdown.style.color = '#252525';
+                markdown.style.borderColor = '#ffe6e6'
                 stats.style.color = '#252525';
                 textarea.style.caretColor = '#252525';
                 textarea.style.color = '#252525';
                 textarea.style.backgroundColor = '#fff4eb'
                 textarea.style.setProperty('--placeholder-color', '#252525')
-                tabNumber.style.color = '#ffe0e0'
-                tabNumber.style.textShadow = "-2px -2px 0 #202020, 2px -2px 0 #202020, -2px 2px 0 #202020, 2px 2px 0 #202020";
+                tabNumber.style.color = '#fff4eb'
+                tabNumber.style.textShadow = "-2px -2px 0 #232323, 2px -2px 0 #232323, -2px 2px 0 #232323, 2px 2px 0 #232323";
             }
         } else if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === 'd') {
             e.preventDefault();
@@ -46,6 +47,9 @@ async function shortcuts() {
             const markdown = document.getElementById('markdownOutput');
             const tabNumber = document.getElementById('tabNumber');
             if (textarea && stats && markdown && tabNumber) {
+                markdown.style.backgroundColor = '#252525';
+                markdown.style.color = '#fff4eb';
+                markdown.style.borderColor = '#252525'
                 stats.style.color = '#fff4eb';
                 textarea.style.caretColor = '#fff4eb';
                 textarea.style.color = '#fff4eb';
@@ -61,7 +65,7 @@ async function shortcuts() {
         if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === 't') {
             e.preventDefault();
 
-            sfx.play();
+            //sfx.play();
 
             alwaysOnTop = !alwaysOnTop;
             await appWindow.setAlwaysOnTop(!alwaysOnTop);
@@ -83,14 +87,17 @@ async function shortcuts() {
                 markdownOutput.style.display = 'block';
                 textarea.style.width = '100%';
                 markdownOutput.style.width = '100%';
-                markdownOutput.style.height = '50%';
-                markdownOutput.style.animation = 'slideInTop 0.2s linear forwards';
-                setTimeout(() => {
-                    textarea.style.height = '50%';
-                }, 400);
+                
+                markdownOutput.style.animation = 'markdownTop 0.2s linear forwards';
+                
+                textarea.style.animation = 'textareaTop 0.2s linear forwards';
+                
+                markdownOutput.style.borderTopWidth = 'thick'
+                
             } else if (textarea && markdownOutput && !split) {
                 textarea.style.width = '100%';
                 markdownOutput.style.width = '0%';
+                textarea.style.animation = ''
                 textarea.style.height = '100%';
                 markdownOutput.style.height = '0%';
                 markdownOutput.style.bottom = '';
@@ -109,13 +116,16 @@ async function shortcuts() {
                 textarea.style.width = '100%';
                 markdownOutput.style.width = '100%';
                 markdownOutput.style.height = '50%';
-                markdownOutput.style.animation = 'slideInBottom 0.2s linear forwards';
-                setTimeout(() => {
-                    textarea.style.height = '50%';
-                }, 400);
+                
+                markdownOutput.style.animation = 'markdownBottom 0.2s linear forwards';
+                    
+                textarea.style.animation = 'textareaBottom 0.2s linear forwards';
+                
+                markdownOutput.style.borderBottomWidth = 'thick'
             } else if (textarea && markdownOutput && !split) {
                 markdownOutput.style.top = '';
                 textarea.style.width = '100%';
+                textarea.style.animation = ''
                 markdownOutput.style.width = '0%';
                 textarea.style.height = '100%';
                 markdownOutput.style.height = '0%';
@@ -136,14 +146,17 @@ async function shortcuts() {
                 markdownOutput.style.width = '50%';
                 textarea.style.height = '100%';
                 markdownOutput.style.height = '100%';
-                markdownOutput.style.animation = 'slideInLeft 0.2s linear forwards';
-                setTimeout(() => {
-                    textarea.style.width = '50%';
-                }, 400);
+
+                markdownOutput.style.animation = 'markdownLeft 0.2s linear forwards';
+                
+                textarea.style.animation = 'textareaLeft 0.2s linear forwards';
+
+                markdownOutput.style.borderLeftWidth = 'thick'
             } else if (textarea && markdownOutput && !split) {
                 textarea.style.right = '';
                 markdownOutput.style.left = '';
                 textarea.style.width = '100%';
+                textarea.style.animation = ''
                 markdownOutput.style.width = '0%';
                 textarea.style.height = '100%';
                 markdownOutput.style.height = '0%';
@@ -165,13 +178,16 @@ async function shortcuts() {
                 markdownOutput.style.width = '50%';
                 textarea.style.height = '100%';
                 markdownOutput.style.height = '100%';
-                markdownOutput.style.animation = 'slideInRight 0.2s linear forwards';
-                setTimeout(() => {
-                    textarea.style.width = '50%';
-                }, 400);
+                
+                markdownOutput.style.animation = 'markdownRight 0.2s linear forwards';
+                  
+                textarea.style.animation = 'textareaRight 0.2s linear forwards';
+
+                markdownOutput.style.borderRightWidth = 'thick'
             } else if (textarea && markdownOutput && !split) {
                 markdownOutput.style.left = '';
                 textarea.style.width = '100%';
+                textarea.style.animation = ''
                 markdownOutput.style.width = '0%';
                 textarea.style.height = '100%';
                 markdownOutput.style.height = '0%';
