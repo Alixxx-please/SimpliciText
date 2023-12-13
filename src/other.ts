@@ -2,6 +2,7 @@ import { marked } from 'marked';
 import { writeTextFile, exists, createDir, BaseDirectory, removeFile } from '@tauri-apps/api/fs';
 import { appWindow } from "@tauri-apps/api/window";
 import { sep } from '@tauri-apps/api/path';
+import { type } from '@tauri-apps/api/os';
 
 
 
@@ -26,8 +27,6 @@ async function updateText() {
     }
     textInput.addEventListener('input', updateText);
 }
-
-
 
 async function autoSave() {
     if (!await exists('SimpliciText', { dir: BaseDirectory.Document })) {
@@ -66,7 +65,39 @@ async function autoSave() {
     })
 }
 
+async function createAlias() {
+    const osType = await type();
+    let shellProfile = '';
+    let shortAlias = '';
+    let longAlias = '';
 
+    if (osType === 'Darwin') {
+        shellProfile = `${BaseDirectory.Home}/.zshrc`;
+    } else if (osType === 'Linux') {
+        shellProfile = `${BaseDirectory.Home}/.bashrc`;
+    } else if (osType === 'Windows_NT') {
+        shellProfile = `${BaseDirectory.Home}/.bashrc`;
+    }
 
+    if (osType === 'Darwin') {
+        shortAlias = `alias st="/Applications/SimpliciText.app"`
+        longAlias = `alias simplicitext="/Applications/SimpliciText.app"`
+    } else if (osType === 'Linux') {
+        shortAlias = `alias st="/usr/bin/simplicitext"`
+        longAlias = `alias simplicitext="/usr/bin/simplicitext"`
+    } else if (osType === 'Windows_NT') {
+        shortAlias = `alias st="C:\\Program Files\\SimpliciText"`
+        longAlias = `alias simplicitext="C:\\Program Files\\SimpliciText"`
+    }
+
+    try {
+        writeTextFile(`${shellProfile}`, `${shortAlias}`, { append: true })
+        writeTextFile(`${shellProfile}`, `${longAlias}`, { append: true })
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+export { createAlias }
 export { updateText }
 export { autoSave }

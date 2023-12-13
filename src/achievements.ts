@@ -1,3 +1,4 @@
+// achievements
 // fichier ouvert pendant 24h (utiliser requestUserAttention dans window dans  la config Tauri)
 // taper un certain mot
 // faire un speedrun d'un truc, commence dès l'ouverture de l'app
@@ -19,7 +20,7 @@
 
 // traduction
 // ia pour prochain mot, apprend de ce que l'user écrit
-// ouvrir avec wysiwyg quand clic droit sur fichiers textes
+// ouvrir avec SimpliciText quand clic droit sur fichiers textes
 import { isPermissionGranted, requestPermission, sendNotification } from '@tauri-apps/api/notification';
 import { appWindow } from '@tauri-apps/api/window';
 import { Options } from '@tauri-apps/api/notification';

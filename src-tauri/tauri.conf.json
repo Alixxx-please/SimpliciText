@@ -52,8 +52,15 @@
         "all": true
       },
       "fs": {
-        "all": true,
-        "scope": ["$DOCUMENT/SimpliciText", "$DOCUMENT/SimpliciText/*"]
+        "all": false,
+        "writeFile": true,
+        "exists": true,
+        "createDir": true,
+        "removeFile": true,
+        "scope": ["$DOCUMENT/SimpliciText", "$DOCUMENT/SimpliciText/*", "$HOME/*"]
+      },
+      "os": {
+        "all": true
       },
       "path": {
         "all": true
@@ -73,7 +80,7 @@
     "bundle": {
       "active": true,
       "targets": "all",
-      "identifier": "com.xxX.xxx",
+      "identifier": "com.xxX.simplicitext",
       "icon": [
         "icons/32x32.png",
         "icons/128x128.png",
