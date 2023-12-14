@@ -61,6 +61,10 @@ async function autoSave() {
             }
             await writeTextFile(`SimpliciText${sep}${fileName}.md`, `${textInput?.value}`, { dir: BaseDirectory.Document });
             firstId = fileName;
+        } else if (textInput.value.length === 0) {
+            if (await exists(`SimpliciText${sep}${firstId}.md`, { dir: BaseDirectory.Document })) {
+                await removeFile(`SimpliciText${sep}${firstId}.md`, { dir: BaseDirectory.Document });
+            }
         }
     })
 }
