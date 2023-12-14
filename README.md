@@ -2,6 +2,11 @@
 
 <p align="center"><img src="./src-tauri/icons/icon.ico"></p>
 
+<details open>
+  <summary>Screenshots 👀</summary>
+  <p align="center"><img src="./screenshots/light_dark_mode.png"></p>
+</details>
+
 ## What
 **SimpliciText** can be described as a powerful, lightweight minimal text editor.
 Available for macOS and Linux \*for now\*
