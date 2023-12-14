@@ -1,6 +1,5 @@
 import { marked } from 'marked';
 import { writeTextFile, exists, createDir, BaseDirectory, removeFile } from '@tauri-apps/api/fs';
-import { appWindow } from "@tauri-apps/api/window";
 import { sep } from '@tauri-apps/api/path';
 import { type } from '@tauri-apps/api/os';
 
@@ -35,7 +34,6 @@ async function autoSave() {
     }
 
     document.addEventListener('input', async () => {
-        await appWindow.setTitle(textInput.value.substring(0, 8));
         let fileName = textInput.value.substring(0, 8);
 
         if (textInput.value.length < 8 && textInput.value.length > 0) {
@@ -65,6 +63,7 @@ async function autoSave() {
             if (await exists(`SimpliciText${sep}${firstId}.md`, { dir: BaseDirectory.Document })) {
                 await removeFile(`SimpliciText${sep}${firstId}.md`, { dir: BaseDirectory.Document });
             }
+
         }
     })
 }

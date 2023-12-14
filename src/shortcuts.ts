@@ -6,6 +6,7 @@ import { marked } from 'marked';
 
 let alwaysOnTop = true;
 let darkMode = true;
+let windowTitle = 'SimpliciText'
 let anotherElapsedTime = new Date()
 let split = false;
 let toggleStats = false;
@@ -14,6 +15,10 @@ const markdownOutput = document.getElementById('markdownOutput');
 let stats = document.getElementById('stats');
 const sfx = new Audio('./assets/sounds/sfx.wav');
 
+
+document.addEventListener('input', async () => {
+    windowTitle = textarea.value.substring(0, 8);
+});
 
 async function shortcuts() {
     // Ctrl + Alt + L / D = light / dark mode
@@ -282,6 +287,7 @@ async function shortcuts() {
 
             if (tabContent[tabNumberManager]) {
                 textarea.value = tabContent[tabNumberManager].textarea;
+                
                 if (markdownOutput) {
                     markdownOutput.innerHTML = tabContent[tabNumberManager].markdown;
                 }
@@ -290,6 +296,7 @@ async function shortcuts() {
                 if (markdownOutput) {
                     markdownOutput.innerHTML = '';
                 }
+                windowTitle = '';
             }
 
             const number = e.key.toLocaleLowerCase();
@@ -338,6 +345,10 @@ async function exitPopup() {
         }
     });
 }
+
+document.addEventListener('input', async () => {
+    await appWindow.setTitle(windowTitle);
+});
 
 
 
