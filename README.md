@@ -16,7 +16,7 @@
 
 ## What
 **SimpliciText** can be described as a powerful, lightweight minimal text editor.
-Available for macOS and Linux \*for now\*
+Available for macOS \*for now, soon Windows\*
 
 ## Why
 I simply wanted to make this my first project, but got far enough to feel like sharing it with everyone.  
