@@ -23,6 +23,6 @@ Here, `Ctrl + Alt` is your best friend! These two keys are the base of every sho
 Some other notable are:
 - **Markdown** support! Use the arrow keys shortcut to preview it.
 - **Simple leave** lets you hold your escape key for a few seconds to leave the editor. ~~Nice and clean~~ (not yet nice and clean).
-- **Auto save**! No need to think about saving your file anymore, it does it for you!
+- **Auto save**! No need to think about saving your file anymore, it does it for you! (saved under your Documents/SimpliciText folder)
 
 Enjoy :)
