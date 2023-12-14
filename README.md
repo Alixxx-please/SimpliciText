@@ -4,7 +4,10 @@
 
 <details open>
   <summary>Screenshots 👀</summary>
-  <p align="center"><img src="./screenshots/light_dark_mode.png"></p>
+  <p align="center">
+    <img src="./screenshots/light_dark_mode.png">
+    Light and dark mode!
+  </p>
 </details>
 
 ## What
