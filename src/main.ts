@@ -1,7 +1,7 @@
 import { shortcuts } from './shortcuts';
 import { exitPopup } from './shortcuts';
 import { achievements } from './achievements';
-import { createAlias, updateText } from './other';
+import { updateText } from './other';
 import { autoSave } from './other';
 
 
