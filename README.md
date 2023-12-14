@@ -10,7 +10,7 @@
   </p>
   <p align="center">
     <img src="./screenshots/tqbfjotld.png">
-    Markdown capabilities!
+    Markdown capabilities <i>(and other stats (bottom right))</i>!
   </p>
 </details>
 
