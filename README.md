@@ -1,4 +1,6 @@
-# <center>SimpliciText</center>
+# <center>SimpliciText</center> 
+ 
+<center><img src="./src-tauri/icons/icon.ico"></center>
 
 ## What
 **SimpliciText** can be described as a powerful, lightweight minimal text editor.
