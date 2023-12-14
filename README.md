@@ -1,7 +1,7 @@
 # <center>SimpliciText</center>
 
 ## What
-**SimpliciText** can be described as a powerful, minimal text editor.
+**SimpliciText** can be described as a powerful, lightweight minimal text editor.
 
 ## Why
 I simply wanted to make this my first project, but got far enough to feel like sharing it with everyone.  

@@ -29,7 +29,7 @@ async function shortcuts() {
             if (textarea && stats && markdown && tabNumber) {
                 markdown.style.backgroundColor = '#fff4eb';
                 markdown.style.color = '#252525';
-                markdown.style.borderColor = '#ffe6e6'
+                markdown.style.borderColor = '#ffe0e0'
                 stats.style.color = '#252525';
                 textarea.style.caretColor = '#252525';
                 textarea.style.color = '#252525';
@@ -49,11 +49,11 @@ async function shortcuts() {
             if (textarea && stats && markdown && tabNumber) {
                 markdown.style.backgroundColor = '#252525';
                 markdown.style.color = '#fff4eb';
-                markdown.style.borderColor = '#252525'
+                markdown.style.borderColor = '#202020'
                 stats.style.color = '#fff4eb';
                 textarea.style.caretColor = '#fff4eb';
                 textarea.style.color = '#fff4eb';
-                textarea.style.backgroundColor = '#252525'
+                textarea.style.backgroundColor = '#202020'
                 textarea.style.setProperty('--placeholder-color', '#fff4eb')
                 tabNumber.style.textShadow = "-2px -2px 0 #fff4eb, 2px -2px 0 #fff4eb, -2px 2px 0 #fff4eb, 2px 2px 0 #fff4eb";
             }
