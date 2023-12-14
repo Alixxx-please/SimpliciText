@@ -8,6 +8,10 @@
     <img src="./screenshots/light_dark_mode.png">
     Light and dark mode!
   </p>
+  <p align="center">
+    <img src="./screenshots/tqbfjotld.png">
+    Markdown capabilities!
+  </p>
 </details>
 
 ## What
