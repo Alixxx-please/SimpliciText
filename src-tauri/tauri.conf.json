@@ -57,7 +57,8 @@
         "exists": true,
         "createDir": true,
         "removeFile": true,
-        "scope": ["$DOCUMENT/SimpliciText", "$DOCUMENT/SimpliciText/*", "$HOME/*"]
+        "readFile": true,
+        "scope": ["$DOCUMENT/*", "$DOCUMENT/SimpliciText/*", "$APPDATA/*", "$APPDATA/achievements/*"]
       },
       "os": {
         "all": true

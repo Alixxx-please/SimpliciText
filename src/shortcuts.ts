@@ -4,6 +4,7 @@ import { marked } from 'marked';
 
 
 
+export let number = ''
 let alwaysOnTop = true;
 let darkMode = true;
 let windowTitle = 'SimpliciText'
@@ -13,7 +14,7 @@ let toggleStats = false;
 let textarea = document.getElementById('textInput') as HTMLTextAreaElement;
 const markdownOutput = document.getElementById('markdownOutput');
 let stats = document.getElementById('stats');
-const sfx = new Audio('./assets/sounds/sfx.wav');
+// const sfx = new Audio('./assets/sounds/sfx.wav');
 
 
 document.addEventListener('input', async () => {
@@ -272,7 +273,7 @@ async function shortcuts() {
         if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() >= '0' && e.key.toLocaleLowerCase() <= '9') {
             e.preventDefault();
 
-            sfx.play();
+            // sfx.play();
 
             const textarea = document.getElementById('textInput') as HTMLTextAreaElement;
             const markdownText = textarea.value;
@@ -299,7 +300,7 @@ async function shortcuts() {
                 windowTitle = '';
             }
 
-            const number = e.key.toLocaleLowerCase();
+            number = e.key.toLocaleLowerCase();
             let tabNumber = document.getElementById('tabNumber')
             
             if (tabNumber) {
@@ -317,13 +318,17 @@ async function shortcuts() {
                     }
                 }, 1000);
             }
+            const event = new CustomEvent('tabChanged', { detail: { tabNumber: number } });
+            window.dispatchEvent(event);
+
+            return number;
         }
     });
 
     // Prevents right click
-    document.addEventListener("contextmenu", (e) => {
-        e.preventDefault();
-    });
+    //document.addEventListener("contextmenu", (e) => {
+        //e.preventDefault();
+    //});
 }
 
 async function exitPopup() {
