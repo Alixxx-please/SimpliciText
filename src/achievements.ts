@@ -1,6 +1,8 @@
 import { readTextFile, writeTextFile, exists, createDir, BaseDirectory } from '@tauri-apps/api/fs';
 import { sep, appDataDir } from '@tauri-apps/api/path';
 
+let currentIndex = 0;
+
 interface Achievement {
     name: string;
     icon: string;
@@ -97,9 +99,11 @@ function displayAchievements(achievements: Achievement[]): void {
     if (listElement) {
         listElement.innerHTML = '';
 
-        for (const achievement of achievements) {
+        for (let i = 0; i < achievements.length; i++) {
+            const achievement = achievements[i];
+
             const itemElement = document.createElement('div');
-            itemElement.className = 'item';
+            itemElement.className = 'item' + (i === currentIndex ? ' active-item' : '');
 
             const iconElement = document.createElement('span');
             iconElement.className = 'icon';
@@ -107,6 +111,7 @@ function displayAchievements(achievements: Achievement[]): void {
 
             const titleElement = document.createElement('span');
             titleElement.className = 'title';
+            titleElement.innerHTML = achievement.title;
 
             const descriptionElement = document.createElement('span');
             descriptionElement.className = 'description';
@@ -121,10 +126,23 @@ function displayAchievements(achievements: Achievement[]): void {
     }
 }
 
+
 async function handleAchievements(): Promise<void> {
     await ensureAchievementsDirectory();
     const storedAchievements = await getStoredAchievements();
     displayAchievements(storedAchievements);
+
+    const achievementsCount = storedAchievements.length;
+
+    document.addEventListener("keydown", async function (e) {
+        if (e.key.toLocaleLowerCase() === "arrowup") {
+            currentIndex = currentIndex > 0 ? currentIndex - 1 : achievementsCount - 1;
+            displayAchievements(storedAchievements); // Mettre à jour l'affichage
+        } else if (e.key.toLocaleLowerCase() === "arrowdown") {
+            currentIndex = currentIndex < achievementsCount - 1 ? currentIndex + 1 : 0;
+            displayAchievements(storedAchievements); // Mettre à jour l'affichage
+        }
+    });
 
     // Simulated achievement unlock after 24 hours
     setTimeout(async () => {

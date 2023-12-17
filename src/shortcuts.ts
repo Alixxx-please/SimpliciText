@@ -334,7 +334,7 @@ async function shortcuts() {
 
             pageOpened = !pageOpened;
             if (page && pageOpened) {
-                page.style.display = 'block';
+                page.style.display = 'flex';
                 page.style.animation = 'pageAnimationIn 0.2s linear forwards';
 
             } else if (page && !pageOpened) {

@@ -119,44 +119,62 @@ textarea::placeholder {
   border-radius: 9px;
   background-color: #202020;
   color: #fff4eb;
-  height: 85%;
-  width: 85%;
+  height: 88%;
+  width: 88%;
   position: absolute;
   top: 50%;
   left: 50%;
   display: none;
   transform: translate(-50%, -50%);
-  overflow: hidden;
+  overflow-y: auto;
+  align-items: center;
+  justify-content: center;
 }
 
 .list {
-  height: 100%;
-  overflow: hidden;
-  padding-left: 2%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .item {
   display: flex;
   align-items: flex-start;
-  margin-bottom: 10px;
   font-size: 16px;
   font-family: 'Consolas', monospace;
   transition: background-color 0.3s ease;
+  border-radius: 9px;
+  padding: 15px;
+  text-align: center;
 }
 
 .icon {
-  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  font-size: 16px;
+  margin-right: 1%;
+  margin-left: 1%;
 }
 
 .text {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 }
 
 .title {
-  font-weight: bold;
-  margin-bottom: 5px;
-  margin-right: 10px;
+  font-size: 100%;
+  flex-grow: 1;
+  padding: 0 10px;
+}
+
+.description {
+  font-size: 16px
+}
+
+.active-item {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 9px;
 }
 
 
