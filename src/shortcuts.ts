@@ -14,6 +14,8 @@ let toggleStats = false;
 let textarea = document.getElementById('textInput') as HTMLTextAreaElement;
 const markdownOutput = document.getElementById('markdownOutput');
 let stats = document.getElementById('stats');
+const page = document.getElementById('page');
+let pageOpened = false
 // const sfx = new Audio('./assets/sounds/sfx.wav');
 
 
@@ -325,10 +327,26 @@ async function shortcuts() {
         }
     });
 
+    // Ctrl + Alt + A = achievement page
+    document.addEventListener('keydown', async (e) => {
+        if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === 'a') {
+            e.preventDefault();
+
+            pageOpened = !pageOpened;
+            if (page && pageOpened) {
+                page.style.display = 'block';
+                page.style.animation = 'pageAnimationIn 0.2s linear forwards';
+
+            } else if (page && !pageOpened) {
+                page.style.animation = 'pageAnimationOut 0.2s linear forwards';
+            }
+        }
+    });
+
     // Prevents right click
-    //document.addEventListener("contextmenu", (e) => {
-        //e.preventDefault();
-    //});
+    document.addEventListener("contextmenu", (e) => {
+        e.preventDefault();
+    });
 }
 
 async function exitPopup() {

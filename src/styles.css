@@ -114,6 +114,70 @@ textarea::placeholder {
   font-family: 'Consolas', monospace;
 }
 
+#page {
+  z-index: 2;
+  border-radius: 9px;
+  background-color: #202020;
+  color: #fff4eb;
+  height: 85%;
+  width: 85%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: none;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+}
+
+.list {
+  height: 100%;
+  overflow: hidden;
+  padding-left: 2%;
+}
+
+.item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 10px;
+  font-size: 16px;
+  font-family: 'Consolas', monospace;
+  transition: background-color 0.3s ease;
+}
+
+.icon {
+  margin-right: 10px;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-weight: bold;
+  margin-bottom: 5px;
+  margin-right: 10px;
+}
+
+
+
+@keyframes pageAnimationIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes pageAnimationOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
 
 
 @keyframes toastAnimationIn {
