@@ -24,8 +24,8 @@ async function updateText() {
     if (markdownOutput) {
         markdownOutput.innerHTML = htmlText;
     }
-    textInput.addEventListener('input', updateText);
 }
+textInput.addEventListener('input', updateText);
 
 async function autoSave() {
     if (!await exists('SimpliciText', { dir: BaseDirectory.Document })) {
