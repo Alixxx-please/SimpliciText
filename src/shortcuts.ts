@@ -342,11 +342,6 @@ async function shortcuts() {
             }
         }
     });
-
-    // Prevents right click
-    document.addEventListener("contextmenu", (e) => {
-        e.preventDefault();
-    });
 }
 
 async function exitPopup() {

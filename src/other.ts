@@ -18,6 +18,11 @@ let seconds = date.getSeconds().toString().padStart(2, '0');
 let firstId = `${year}${month}${day}T${hours};${minutes};${seconds}`;
 
 
+// Prevents right click
+document.addEventListener("contextmenu", (e) => {
+    e.preventDefault();
+});
+
 async function updateText() {
     const markdownText = textInput.value;
     const htmlText = await marked(markdownText);
