@@ -16,6 +16,7 @@ const markdownOutput = document.getElementById('markdownOutput');
 let stats = document.getElementById('stats');
 const page = document.getElementById('page');
 let pageOpened = false
+let vibrancy = false
 // const sfx = new Audio('./assets/sounds/sfx.wav');
 
 
@@ -342,6 +343,30 @@ async function shortcuts() {
             }
         }
     });
+    
+    // Ctrl + Alt + V = vibrancy effect
+    let originalTextareaBg: string | null = null;
+    let originalMarkdownOutputBg: string | null = null;
+    
+    document.addEventListener('keydown', (e) => {
+        if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === 'v') {
+            e.preventDefault()
+    
+            vibrancy = !vibrancy
+            if (vibrancy && textarea && markdownOutput) {
+                // Store original background colors
+                originalTextareaBg = textarea.style.backgroundColor;
+                originalMarkdownOutputBg = markdownOutput.style.backgroundColor;
+    
+                textarea.style.backgroundColor = 'transparent'
+                markdownOutput.style.backgroundColor = 'transparent'
+            } else if (!vibrancy && textarea && markdownOutput) {
+                // Restore original background colors
+                textarea.style.backgroundColor = originalTextareaBg || '#252525';
+                markdownOutput.style.backgroundColor = originalMarkdownOutputBg || '#252525';
+            }
+        }
+    })
 }
 
 async function exitPopup() {
