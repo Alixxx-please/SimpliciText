@@ -72,6 +72,7 @@ textarea::placeholder {
   padding-left: 2%;
   padding-top: 3%;
   padding-bottom: 3%;
+  border-radius: 9px;
   width: 0;
   height: 0;
   border-color: #202020;
