@@ -368,24 +368,39 @@ async function shortcuts() {
 }
 
 async function exitPopup() {
-    // Hold Escape = exit
-    document.addEventListener('keydown', (e) => {
+    const exitPopup = document.getElementById('exitPopup');
+    const bar = document.getElementById('bar');
+    const barWidth = bar ? window.getComputedStyle(bar).width : '';
+
+    document.addEventListener('keydown', async (e) => {
         if (e.key.toLocaleLowerCase() === 'escape') {
             e.preventDefault();
-            
-            exit();
+
+            if (exitPopup && bar) {
+                exitPopup.style.display = 'block';
+                bar.style.animation = 'exit 2s ease-in-out forwards';
+            }
+
+            if (barWidth === '360px') {
+                await exit();
+            }
+            console.log(barWidth);
         }
     });
 
-    // Release escape
     document.addEventListener('keyup', (e) => {
         if (e.key.toLocaleLowerCase() === 'escape') {
             e.preventDefault();
-            
 
+            if (exitPopup && bar) {
+                exitPopup.style.display = 'none';
+                bar.style.animation = '';
+            }
         }
     });
 }
+
+
 
 document.addEventListener('input', async () => {
     await appWindow.setTitle(windowTitle);

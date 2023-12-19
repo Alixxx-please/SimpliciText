@@ -1,8 +1,8 @@
 [package]
-name = "wysiwyg"
+name = "simplici_text"
 version = "1.0.0"
 description = "A minimal, lightweight text editor"
-authors = ["you"]
+authors = ["xxX"]
 license = ""
 repository = ""
 edition = "2021"
