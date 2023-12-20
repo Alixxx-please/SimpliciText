@@ -20,8 +20,8 @@ let firstId = `${year}${month}${day}T${hours};${minutes};${seconds}`;
 
 // Prevents right click
 document.addEventListener("contextmenu", (e) => {
-    e.preventDefault();
-});
+    //e.preventDefault();
+}); 
 
 async function updateText() {
     const markdownText = textInput.value;

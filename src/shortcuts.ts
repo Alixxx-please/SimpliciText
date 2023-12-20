@@ -25,6 +25,7 @@ let fontInput = document.getElementById('fontInput') as HTMLInputElement
 let enteredFont = ''
 const suggestions = document.getElementById('suggestions');
 let selectedIndex = -1;
+let isLineCounter = false
 
 
 document.addEventListener('input', async () => {
@@ -480,7 +481,48 @@ async function shortcuts() {
             })
         }
     })
-}
+
+    // Ctrl + Alt + C = line counter
+    let lineCounter = document.getElementById('lineCounter');
+
+    function updateLineCounter() {
+        const lines = textarea.value.split('\n');
+    
+        if (lineCounter) {
+            lineCounter.innerHTML = '';
+        }
+    
+        for (let i = 1; i <= lines.length; i++) {
+            const lineNum = document.createElement('div');
+            lineNum.textContent = i.toString();
+            if (lineCounter) {
+                lineCounter.appendChild(lineNum);
+            }
+        }
+    }
+
+    textarea.addEventListener('input', updateLineCounter);
+    textarea.addEventListener('scroll', () => {
+        if (lineCounter) {
+            lineCounter.scrollTop = textarea.scrollTop;
+        }
+    });
+              
+    updateLineCounter();
+
+    document.addEventListener('keydown', (e) => {
+        if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === 'c') {
+            e.preventDefault();
+
+            isLineCounter = !isLineCounter
+            if (lineCounter && isLineCounter) {
+                lineCounter.style.display = 'block'
+            } else if (lineCounter && !isLineCounter) {
+                lineCounter.style.display = 'none'
+            }
+        };
+    });
+};
 
 async function exitPopup() {
     const exitPopup = document.getElementById('exitPopup');

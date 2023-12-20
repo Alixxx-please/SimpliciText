@@ -19,13 +19,15 @@ textarea {
   position: absolute;
   background-color: #252525;
   color: #fff4eb;
-  padding-left: 2%;
+  padding-left: 6%;
+  padding-right: 6%;
   padding-top: 5%;
   padding-bottom: 5%;
   border: none;
   caret-color: #fff4eb;
   font-family: 'Consolas', monospace;
   font-size: 16px;
+  line-height: 1.3;
 }
 
 textarea::placeholder {
@@ -34,6 +36,31 @@ textarea::placeholder {
   opacity: 0.5;
   font-family: 'Consolas', monospace;
   font-size: medium;
+}
+
+/* mettre markdown output ici*/
+
+#lineCounter {
+  z-index: 1;
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  display: none;
+  width: 6%;
+  height: 100%;
+  overflow: hidden;
+  color: #fff4eb;
+  padding-top: 5%;
+  padding-bottom: 5%;
+  text-align: center;
+  line-height: 1.3;
+  font-family: 'Consolas', monospace;
+  font-size: 16px;
+  opacity: 0.5;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;  
 }
 
 
@@ -78,8 +105,8 @@ textarea::placeholder {
   font-family: 'Consolas', monospace;
   font-size: medium;
   user-select: none;
-  -webkit-user-select: none;  /* Chrome, Safari, Opera */
-  -moz-user-select: none;     /* Firefox */
+  -webkit-user-select: none;
+  -moz-user-select: none;
   -ms-user-select: none;  
 }
 
@@ -90,7 +117,8 @@ textarea::placeholder {
   background-color: #252525;
   color: #fff4eb;
   display: none;
-  padding-left: 2%;
+  padding-left: 6%;
+  padding-right: 6%;
   padding-top: 3%;
   padding-bottom: 3%;
   border-radius: 9px;
@@ -101,6 +129,7 @@ textarea::placeholder {
   border-style: solid;
   box-sizing: border-box;
   overflow: auto;
+  word-wrap: break-word;
   animation: slideInTop 0.2s linear forwards;
 }
 
