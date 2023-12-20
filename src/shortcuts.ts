@@ -1,6 +1,7 @@
 import { exit } from '@tauri-apps/api/process';
 import { appWindow } from "@tauri-apps/api/window";
 import { marked } from 'marked';
+import { fonts } from './fonts'
 
 
 
@@ -17,7 +18,13 @@ let stats = document.getElementById('stats');
 const page = document.getElementById('page');
 let pageOpened = false
 let vibrancy = false
+let isFont: boolean = false
 const sfx = new Audio('./src/assets/sounds/sfx.wav');
+const fontBox = document.getElementById('fontBox')
+let fontInput = document.getElementById('fontInput') as HTMLInputElement
+let enteredFont = ''
+const suggestions = document.getElementById('suggestions');
+let selectedIndex = -1;
 
 
 document.addEventListener('input', async () => {
@@ -365,26 +372,139 @@ async function shortcuts() {
             }
         }
     })
+
+    // Ctrl + Alt + F = change text font
+    document.addEventListener('keydown', (e) => {
+        if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === 'f') {
+            e.preventDefault();
+
+            isFont = !isFont
+            if (fontBox && isFont) {
+                fontBox.style.display = 'block'
+                fontInput.focus()
+            } else if (fontBox && !isFont) {
+                fontBox.style.display = 'none'
+                textarea.focus()
+            }
+
+            document.addEventListener('input', () => {
+                enteredFont = fontInput.value;
+
+                if (suggestions) {
+                    suggestions.innerHTML = '';
+                }
+                selectedIndex = -1;
+
+                if (!enteredFont) {
+                    textarea.style.fontFamily = '';
+                    if (markdownOutput) {
+                        markdownOutput.style.fontFamily = ''
+                    }
+                    return;
+                }
+
+                const matchingFonts = fonts.filter(font => font.toLowerCase().includes(enteredFont.toLowerCase()));
+
+                if (matchingFonts.length === 1 && matchingFonts[0].toLowerCase() === enteredFont.toLowerCase()) {
+                    textarea.style.fontFamily = matchingFonts[0];
+                    if (markdownOutput) {
+                        markdownOutput.style.fontFamily = matchingFonts[0];
+                    }
+                }
+
+                matchingFonts.forEach((font) => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = font;
+                    listItem.style.fontFamily = font;
+                    listItem.addEventListener('click', () => applyFont(font));
+                    if (suggestions) {
+                        suggestions.appendChild(listItem);
+                    }
+                });
+
+                function applyFont(font: string) {
+                    fontInput.value = font;
+                    fontInput.style.fontFamily = font;
+                    if (suggestions) {
+                        suggestions.innerHTML = '';
+                    }
+                    textarea.style.fontFamily = font;
+                    if (markdownOutput) {
+                        markdownOutput.style.fontFamily = font;
+                    }
+                }
+
+                fontInput.addEventListener('keydown', (e) => {
+                    const suggestionsList = suggestions?.querySelectorAll('li');
+                  
+                    if (suggestionsList) {
+                        if (e.key.toLocaleLowerCase() === 'arrowup') {
+                            e.preventDefault();
+
+                            selectedIndex = (selectedIndex - 1 + suggestionsList.length) % suggestionsList.length;
+                            scrollToSelected(suggestionsList[selectedIndex]);
+                        } else if (e.key.toLocaleLowerCase() === 'arrowdown') {
+                            e.preventDefault();
+
+                            selectedIndex = (selectedIndex + 1) % suggestionsList.length;
+                            scrollToSelected(suggestionsList[selectedIndex]);
+                        } else if (e.key.toLocaleLowerCase() === 'enter' && selectedIndex !== -1) {
+                            e.preventDefault();
+                            const selectedFont = suggestionsList[selectedIndex]?.textContent;
+                            if (selectedFont) {
+                                applyFont(selectedFont);
+                            }
+
+                            if (fontBox) {
+                            fontBox.style.display = 'none'
+                            textarea.focus()
+                            isFont = !isFont
+                            }
+                        }
+                    }
+                  
+                    if (suggestionsList) {
+                        suggestionsList.forEach((item, idx) => {
+                            if (idx === selectedIndex) {
+                                item.classList.add('selected');
+                            } else {
+                                item.classList.remove('selected');
+                            }
+                        });
+                    }
+                });
+
+                function scrollToSelected(element: HTMLLIElement) {
+                    element.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+            })
+        }
+    })
 }
 
 async function exitPopup() {
     const exitPopup = document.getElementById('exitPopup');
     const bar = document.getElementById('bar');
-    const barWidth = bar ? window.getComputedStyle(bar).width : '';
+    let wasOpened = false
 
     document.addEventListener('keydown', async (e) => {
         if (e.key.toLocaleLowerCase() === 'escape') {
             e.preventDefault();
 
+            if (fontBox?.style.display === 'block') {
+                wasOpened = true
+                fontBox.style.display = 'none'
+            }
+
+            const barWidth = bar ? bar.offsetWidth : 0;
             if (exitPopup && bar) {
                 exitPopup.style.display = 'block';
                 bar.style.animation = 'exit 2s ease-in-out forwards';
             }
 
-            if (barWidth === '360px') {
+            if (barWidth === 360) {
                 await exit();
             }
-            console.log(barWidth);
         }
     });
 
@@ -396,6 +516,13 @@ async function exitPopup() {
                 exitPopup.style.display = 'none';
                 bar.style.animation = '';
             }
+            
+            if (wasOpened && fontBox) {
+                fontBox.style.display = 'block'
+                fontInput.focus()
+            }
+
+            wasOpened = false
         }
     });
 }

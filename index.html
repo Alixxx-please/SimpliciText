@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>WYSIWYG</title>
+    <title>SimpliciText</title>
     <link rel="stylesheet" href="/src/styles.css" />
     <script type="module" src="/src/main.ts" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" defer></script>
@@ -13,13 +13,22 @@
       <textarea id="textInput" placeholder="What are you going to type?" autofocus></textarea>
       <div id="markdownOutput"></div>
       
+
       <div id="stats"></div>
       
       <div id="tabNumber"></div>
+
       <div id="exitPopup">
         <div id="bar"></div>
       </div>
+
       <div id="achievementToast"></div>
+
+      <div id="fontBox">
+        <input type="text" id="fontInput" placeholder="Choose a font!">
+        <ul id="suggestions"></ul>
+      </div>
+      
 
       <div id="page">
         <div class="list">

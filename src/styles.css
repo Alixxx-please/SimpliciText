@@ -201,6 +201,58 @@ textarea::placeholder {
 }
 
 
+#fontBox {
+  z-index: 2;
+  position: absolute;
+  box-sizing: border-box;
+  display: none;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 6%;
+  width: 32%;
+}
+
+#fontBox #fontInput {
+  z-index: 2;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  border-radius: 9px;
+  border: 1px solid #fff4eb;
+  background-color: #202020;
+  padding-left: 2%;
+  color: #fff4eb;
+  outline: none;
+}
+
+#fontInput::placeholder {
+  color: #fff4eb;
+  padding-left: 2%;
+  opacity: 0.5;
+  font-family: 'Consolas', monospace;
+  font-size: medium;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 5px 0;
+}
+
+li {
+  padding: 5px;
+}
+
+li.selected {
+  background-color: #202020;
+}
+
+#suggestions {
+  max-height: 200px;
+  overflow: auto; 
+}
+
 
 @keyframes pageAnimationIn {
   from {
