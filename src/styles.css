@@ -172,6 +172,7 @@ textarea::placeholder {
   border-radius: 9px;
   background-color: #202020;
   color: #fff4eb;
+  border: 2px solid #fff4eb;
   height: 88%;
   width: 88%;
   position: absolute;
@@ -226,7 +227,7 @@ textarea::placeholder {
 }
 
 .active-item {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(145, 134, 125, 0.1);
   border-radius: 9px;
 }
 

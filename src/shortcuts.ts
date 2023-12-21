@@ -46,7 +46,7 @@ async function shortcuts() {
             const stats = document.getElementById('stats');
             const markdown = document.getElementById('markdownOutput');
             const tabNumber = document.getElementById('tabNumber');
-            if (textarea && stats && markdown && tabNumber && outerBar && bar && achievementToast && lineCounter && fontInput) {
+            if (textarea && stats && markdown && tabNumber && outerBar && bar && achievementToast && lineCounter && fontInput && page) {
                 markdown.style.backgroundColor = '#fff4eb';
                 markdown.style.color = '#252525';
                 markdown.style.borderColor = '#ffe0e0'
@@ -65,6 +65,9 @@ async function shortcuts() {
                 lineCounter.style.color = '#252525'
                 fontInput.style.border = '2px solid #252525'
                 fontInput.style.backgroundColor = '#ffeee0'
+                page.style.backgroundColor = '#ffeee0'
+                page.style.color = '#252525'
+                page.style.border = '2px solid #252525'
             }
         } else if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === 'd') {
             e.preventDefault();
@@ -74,7 +77,7 @@ async function shortcuts() {
             const stats = document.getElementById('stats');
             const markdown = document.getElementById('markdownOutput');
             const tabNumber = document.getElementById('tabNumber');
-            if (textarea && stats && markdown && tabNumber && outerBar && bar && achievementToast && lineCounter && fontInput) {
+            if (textarea && stats && markdown && tabNumber && outerBar && bar && achievementToast && lineCounter && fontInput && page) {
                 markdown.style.backgroundColor = '#252525';
                 markdown.style.color = '#fff4eb';
                 markdown.style.borderColor = '#202020'
@@ -93,6 +96,9 @@ async function shortcuts() {
                 lineCounter.style.color = '#fff4eb'
                 fontInput.style.border = '2px solid #fff4eb'
                 fontInput.style.backgroundColor = '#202020'
+                page.style.backgroundColor = '#202020'
+                page.style.color = '#fff4eb'
+                page.style.border = '2px solid #fff4eb'
             }
         }
     })
