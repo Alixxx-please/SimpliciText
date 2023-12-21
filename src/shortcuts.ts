@@ -53,7 +53,7 @@ async function shortcuts() {
                 textarea.style.backgroundColor = '#fff4eb'
                 textarea.style.setProperty('--placeholder-color', '#252525')
                 tabNumber.style.color = '#fff4eb'
-                tabNumber.style.textShadow = "-2px -2px 0 #232323, 2px -2px 0 #232323, -2px 2px 0 #232323, 2px 2px 0 #232323";
+                tabNumber.style.textShadow = "-2px -2px 0 #252525, 2px -2px 0 #252525, -2px 2px 0 #252525, 2px 2px 0 #252525";
             }
         } else if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === 'd') {
             e.preventDefault();
@@ -70,8 +70,9 @@ async function shortcuts() {
                 stats.style.color = '#fff4eb';
                 textarea.style.caretColor = '#fff4eb';
                 textarea.style.color = '#fff4eb';
-                textarea.style.backgroundColor = '#202020'
+                textarea.style.backgroundColor = '#252525'
                 textarea.style.setProperty('--placeholder-color', '#fff4eb')
+                tabNumber.style.color = '#252525'
                 tabNumber.style.textShadow = "-2px -2px 0 #fff4eb, 2px -2px 0 #fff4eb, -2px 2px 0 #fff4eb, 2px 2px 0 #fff4eb";
             }
         }

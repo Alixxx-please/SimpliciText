@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@tauri-apps/api": "^1.5.1",
-    "marked": "^11.0.0"
+    "marked": "^11.1.0"
   },
   "devDependencies": {
     "@tauri-apps/cli": "latest",
