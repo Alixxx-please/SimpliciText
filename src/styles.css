@@ -95,7 +95,7 @@ textarea::placeholder {
   top: 50%; 
   left: 50%;
   transform: translate(-50%, -50%);
-  border: 4px solid #202020;
+  border: 2px solid #202020;
   border-radius: 9px;
 }
 
@@ -249,7 +249,7 @@ textarea::placeholder {
   width: 100%;
   height: 100%;
   border-radius: 9px;
-  border: 1px solid #fff4eb;
+  border: 2px solid #fff4eb;
   background-color: #202020;
   padding-left: 2%;
   color: #fff4eb;
@@ -257,7 +257,6 @@ textarea::placeholder {
 }
 
 #fontInput::placeholder {
-  color: #fff4eb;
   padding-left: 2%;
   opacity: 0.5;
   font-family: 'Consolas', monospace;
