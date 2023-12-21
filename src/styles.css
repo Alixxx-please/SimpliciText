@@ -153,8 +153,9 @@ textarea::placeholder {
 
 #achievementToast {
   z-index: 2;
-  background-color: #fff4eb;
-  color: #252525;
+  background-color: #202020;
+  color: #fff4eb;
+  border: 2px solid #fff4eb;
   position: absolute;
   text-align: center;
   bottom: 1%;
