@@ -25,6 +25,9 @@ It also familiarizes you with shortcuts, as you don't ever need your mouse to do
 
 ## How
 Here, `Ctrl + Alt` is your best friend! These two keys are the base of every shortcut. Featuring:
+- `Ctrl + Alt + A` shows who the achievements page.
+- `Ctrl + Alt + C` adds a simple but working line counter next to your text.
+- `Ctrl + Alt + F` is a font changer with 1600+ fonts integrated!
 - `Ctrl + Alt + L / D` changes the visual for a light (L) or dark (D) mode.
 - `Ctrl + Alt + T` (off by default) makes the window stay on top, even if you click on another window.
 - `Ctrl + Alt + S` a toggle shortcut to show alternative stats in the bottom right. 
