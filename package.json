@@ -10,7 +10,7 @@
     "tauri": "tauri"
   },
   "dependencies": {
-    "@tauri-apps/api": "^1.5.1",
+    "@tauri-apps/api": "latest",
     "marked": "^11.1.0"
   },
   "devDependencies": {
