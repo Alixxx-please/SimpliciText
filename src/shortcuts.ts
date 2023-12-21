@@ -54,6 +54,8 @@ async function shortcuts() {
                 textarea.style.setProperty('--placeholder-color', '#252525')
                 tabNumber.style.color = '#fff4eb'
                 tabNumber.style.textShadow = "-2px -2px 0 #252525, 2px -2px 0 #252525, -2px 2px 0 #252525, 2px 2px 0 #252525";
+                console.log(tabNumber.style.color)
+                console.log(tabNumber.style.textShadow)
             }
         } else if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === 'd') {
             e.preventDefault();
@@ -314,10 +316,16 @@ async function shortcuts() {
             let tabNumber = document.getElementById('tabNumber')
             
             if (tabNumber) {
+                const currentColor = tabNumber.style.color;
+                const currentTextShadow = tabNumber.style.textShadow;
+                
                 tabNumber.remove();
                 tabNumber = document.createElement('div');
                 tabNumber.id = 'tabNumber';
                 document.body.appendChild(tabNumber);
+
+                tabNumber.style.color = currentColor;
+                tabNumber.style.textShadow = currentTextShadow;
 
                 tabNumber.style.display = 'block';
                 tabNumber.innerHTML = number;
