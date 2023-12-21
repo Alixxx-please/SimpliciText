@@ -29,6 +29,7 @@ let isLineCounter = false
 const outerBar = document.getElementById('exitPopup')
 const bar = document.getElementById('bar')
 const achievementToast = document.getElementById('achievementToast')
+const ul = document.querySelector('ul')
 
 
 document.addEventListener('input', async () => {
@@ -46,7 +47,7 @@ async function shortcuts() {
             const stats = document.getElementById('stats');
             const markdown = document.getElementById('markdownOutput');
             const tabNumber = document.getElementById('tabNumber');
-            if (textarea && stats && markdown && tabNumber && outerBar && bar && achievementToast && lineCounter && fontInput && page) {
+            if (textarea && stats && markdown && tabNumber && outerBar && bar && achievementToast && lineCounter && fontInput && page && ul) {
                 markdown.style.backgroundColor = '#fff4eb';
                 markdown.style.color = '#252525';
                 markdown.style.borderColor = '#ffe0e0'
@@ -65,9 +66,11 @@ async function shortcuts() {
                 lineCounter.style.color = '#252525'
                 fontInput.style.border = '2px solid #252525'
                 fontInput.style.backgroundColor = '#ffeee0'
+                fontInput.style.color = '#252525'
                 page.style.backgroundColor = '#ffeee0'
                 page.style.color = '#252525'
                 page.style.border = '2px solid #252525'
+                ul.style.color = '#252525'
             }
         } else if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === 'd') {
             e.preventDefault();
@@ -77,7 +80,7 @@ async function shortcuts() {
             const stats = document.getElementById('stats');
             const markdown = document.getElementById('markdownOutput');
             const tabNumber = document.getElementById('tabNumber');
-            if (textarea && stats && markdown && tabNumber && outerBar && bar && achievementToast && lineCounter && fontInput && page) {
+            if (textarea && stats && markdown && tabNumber && outerBar && bar && achievementToast && lineCounter && fontInput && page && ul) {
                 markdown.style.backgroundColor = '#252525';
                 markdown.style.color = '#fff4eb';
                 markdown.style.borderColor = '#202020'
@@ -96,9 +99,11 @@ async function shortcuts() {
                 lineCounter.style.color = '#fff4eb'
                 fontInput.style.border = '2px solid #fff4eb'
                 fontInput.style.backgroundColor = '#202020'
+                fontInput.style.color = '#fff4eb'
                 page.style.backgroundColor = '#202020'
                 page.style.color = '#fff4eb'
                 page.style.border = '2px solid #fff4eb'
+                ul.style.color = '#fff4eb'
             }
         }
     })
@@ -570,14 +575,15 @@ async function exitPopup() {
                 fontBox.style.display = 'none'
             }
 
-            const barWidth = bar ? bar.offsetWidth : 0;
             if (exitPopup && bar) {
                 exitPopup.style.display = 'block';
                 bar.style.animation = 'exit 2s ease-in-out forwards';
             }
 
-            if (barWidth === 360) {
-                await exit();
+            if (bar) {
+                bar.addEventListener('animationend', async () => {
+                    await exit();
+                });
             }
         }
     });

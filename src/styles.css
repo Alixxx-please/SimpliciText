@@ -266,6 +266,7 @@ textarea::placeholder {
 
 ul {
   list-style: none;
+  color: #fff4eb;
   padding: 0;
   margin: 5px 0;
 }
@@ -275,7 +276,7 @@ li {
 }
 
 li.selected {
-  background-color: #202020;
+  background-color: rgba(145, 134, 125, 0.1);
 }
 
 #suggestions {
