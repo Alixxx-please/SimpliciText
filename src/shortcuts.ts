@@ -26,6 +26,8 @@ let enteredFont = ''
 const suggestions = document.getElementById('suggestions');
 let selectedIndex = -1;
 let isLineCounter = false
+const outerBar = document.getElementById('exitPopup')
+const bar = document.getElementById('bar')
 
 
 document.addEventListener('input', async () => {
@@ -43,7 +45,7 @@ async function shortcuts() {
             const stats = document.getElementById('stats');
             const markdown = document.getElementById('markdownOutput');
             const tabNumber = document.getElementById('tabNumber');
-            if (textarea && stats && markdown && tabNumber) {
+            if (textarea && stats && markdown && tabNumber && outerBar && bar) {
                 markdown.style.backgroundColor = '#fff4eb';
                 markdown.style.color = '#252525';
                 markdown.style.borderColor = '#ffe0e0'
@@ -54,8 +56,8 @@ async function shortcuts() {
                 textarea.style.setProperty('--placeholder-color', '#252525')
                 tabNumber.style.color = '#fff4eb'
                 tabNumber.style.textShadow = "-2px -2px 0 #252525, 2px -2px 0 #252525, -2px 2px 0 #252525, 2px 2px 0 #252525";
-                console.log(tabNumber.style.color)
-                console.log(tabNumber.style.textShadow)
+                outerBar.style.border = '4px solid #ffeee0'
+                bar.style.backgroundColor = '#252525'
             }
         } else if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === 'd') {
             e.preventDefault();
@@ -65,7 +67,7 @@ async function shortcuts() {
             const stats = document.getElementById('stats');
             const markdown = document.getElementById('markdownOutput');
             const tabNumber = document.getElementById('tabNumber');
-            if (textarea && stats && markdown && tabNumber) {
+            if (textarea && stats && markdown && tabNumber && outerBar && bar) {
                 markdown.style.backgroundColor = '#252525';
                 markdown.style.color = '#fff4eb';
                 markdown.style.borderColor = '#202020'
@@ -76,6 +78,8 @@ async function shortcuts() {
                 textarea.style.setProperty('--placeholder-color', '#fff4eb')
                 tabNumber.style.color = '#252525'
                 tabNumber.style.textShadow = "-2px -2px 0 #fff4eb, 2px -2px 0 #fff4eb, -2px 2px 0 #fff4eb, 2px 2px 0 #fff4eb";
+                outerBar.style.border = '4px solid #fff4eb'
+                bar.style.backgroundColor = '#202020'
             }
         }
     })
