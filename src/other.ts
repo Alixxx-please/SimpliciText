@@ -1,7 +1,6 @@
 import { marked } from 'marked';
-import { writeTextFile, exists, createDir, BaseDirectory, removeFile } from '@tauri-apps/api/fs';
+import { writeTextFile, exists, createDir, BaseDirectory, removeFile, readTextFile } from '@tauri-apps/api/fs';
 import { sep } from '@tauri-apps/api/path';
-import { type } from '@tauri-apps/api/os';
 
 
 
@@ -73,41 +72,27 @@ async function autoSave() {
     })
 }
 
+
 async function createAlias() {
-    const osType = await type();
-    let shellProfile = '';
-    let shortAlias = '';
-    let longAlias = '';
+    let zshrc = `.zshrc`;
+    let bashrc = `.bashrc`;
+    let alias = `
+# SimpliciText
+alias st="open -a SimpliciText"
+alias simplicitext="open -a SimpliciText"`;
 
-    if (osType === 'Darwin') {
-        shellProfile = `${BaseDirectory.Home}/.zshrc`;
-    } else if (osType === 'Linux') {
-        shellProfile = `${BaseDirectory.Home}/.bashrc`;
-    } else if (osType === 'Windows_NT') {
-        shellProfile = `${BaseDirectory.Home}/.bashrc`;
-    }
-
-    if (osType === 'Darwin') {
-        shortAlias = `alias st="/Applications/SimpliciText.app"`
-        longAlias = `alias simplicitext="/Applications/SimpliciText.app"`
-    } else if (osType === 'Linux') {
-        shortAlias = `alias st="/usr/bin/simplicitext"`
-        longAlias = `alias simplicitext="/usr/bin/simplicitext"`
-    } else if (osType === 'Windows_NT') {
-        shortAlias = `alias st="C:\\Program Files\\SimpliciText"`
-        longAlias = `alias simplicitext="C:\\Program Files\\SimpliciText"`
-    }
-
-    try {
-        writeTextFile(`${shellProfile}`, `${shortAlias}`, { append: true })
-        writeTextFile(`${shellProfile}`, `${longAlias}`, { append: true })
-    } catch (error) {
-        console.error(error);
+    if (await exists(zshrc, { dir: BaseDirectory.Home })) {
+        let content = await readTextFile(zshrc, { dir: BaseDirectory.Home });
+        if (!content.includes(alias) && !content.includes("alias simplicitext")) {
+            await writeTextFile(zshrc, `${alias}`, { dir: BaseDirectory.Home, append: true })
+        }
+    } else if (await exists(bashrc, { dir: BaseDirectory.Home })) {
+        let content = await readTextFile(bashrc, { dir: BaseDirectory.Home });
+        if (!content.includes(alias) && !content.includes("alias simplicitext")) {
+            await writeTextFile(bashrc, `${alias}`, { dir: BaseDirectory.Home, append: true })
+        }
     }
 }
-
-
-
 
 
 export { createAlias }

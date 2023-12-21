@@ -57,7 +57,7 @@
         "createDir": true,
         "removeFile": true,
         "readFile": true,
-        "scope": ["$DOCUMENT/*", "$DOCUMENT/SimpliciText/*", "$APPDATA/*", "$APPDATA/achievements/*"]
+        "scope": ["$DOCUMENT/*", "$DOCUMENT/SimpliciText/*", "$APPDATA/*", "$APPDATA/achievements/*", "$HOME/.zshrc", "$HOME/.bashrc"]
       },
       "os": {
         "all": true
@@ -70,11 +70,6 @@
         "exit": true,
         "relaunch": false,
         "relaunchDangerousAllowSymlinkMacos": false
-      },
-      "all": false,
-      "shell": {
-        "all": false,
-        "open": true
       }
     },
     "bundle": {
