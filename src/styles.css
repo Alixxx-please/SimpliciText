@@ -151,6 +151,46 @@ textarea::placeholder {
                2px 2px 0 #fff4eb;
 }
 
+
+#helpPage {
+  z-index: 2;
+  background-color: #202020;
+  color: #fff4eb;
+  border: 2px solid #fff4eb;
+  position: absolute;
+  display: none;
+  height: 88%;
+  width: 88%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 9px;
+  grid-template-columns: 1fr 1fr;
+  padding: 1%;
+  gap: 1%;
+}
+
+.cell {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  min-height: 0;
+  font-family: 'Consolas', monospace;
+  font-size: 16px;
+  border: 2px solid #fff4eb;
+}
+
+.cell #helpTitle {
+  margin: 0;
+
+}
+
+.cell #helpDescription {
+
+  flex: 1;
+}
+
+
 #achievementToast {
   z-index: 2;
   background-color: #202020;

@@ -57,7 +57,15 @@
         "createDir": true,
         "removeFile": true,
         "readFile": true,
-        "scope": ["$DOCUMENT/*", "$DOCUMENT/SimpliciText/*", "$APPDATA/*", "$APPDATA/achievements/*", "$HOME/.zshrc", "$HOME/.bashrc"]
+        "scope": [
+          "$DOCUMENT/*",
+          "$DOCUMENT/SimpliciText/*",
+          "$APPDATA/*",
+          "$APPDATA/achievements/*",
+          "$APPDATA/scripts/*",
+          "$HOME/.zshrc",
+          "$HOME/.bashrc"
+        ]
       },
       "os": {
         "all": true

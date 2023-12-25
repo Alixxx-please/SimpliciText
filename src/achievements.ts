@@ -8,9 +8,9 @@ interface Achievement {
     icon: string;
     title: string;
     description: string;
-    achievedIcon: string; // Nouveau champ pour l'icône après l'accomplissement
-    achievedDescription: string; // Nouvelle description après l'accomplissement
-    achieved: boolean; // Champ pour indiquer si le succès est accompli
+    achievedIcon: string;
+    achievedDescription: string;
+    achieved: boolean;
 }
 
 const achievements: Achievement[] = [
@@ -39,12 +39,14 @@ async function getAchievementsFilePath(): Promise<string> {
     return `${achievementsDir}${sep}achievements.json`;
 }
 
+
 async function ensureAchievementsDirectory(): Promise<void> {
     const achievementsDir = `${await appDataDir()}achievements`;
     if (!(await exists(achievementsDir, { dir: BaseDirectory.AppData }))) {
         await createDir(achievementsDir, { dir: BaseDirectory.AppData, recursive: true });
     }
 }
+
 
 async function getStoredAchievements(): Promise<Achievement[]> {
     const filePath = await getAchievementsFilePath();
@@ -54,7 +56,6 @@ async function getStoredAchievements(): Promise<Achievement[]> {
         const fileContents = await readTextFile(filePath, { dir: BaseDirectory.AppData });
         storedAchievements = JSON.parse(fileContents);
     } else {
-        // Si le fichier n'existe pas, on crée les succès par défaut
         storedAchievements = [...achievements];
         await storeAchievements(storedAchievements);
     }
@@ -62,23 +63,26 @@ async function getStoredAchievements(): Promise<Achievement[]> {
     return storedAchievements;
 }
 
+
 async function storeAchievements(achievements: Achievement[]): Promise<void> {
     const filePath = await getAchievementsFilePath();
     await writeTextFile(filePath, JSON.stringify(achievements), { dir: BaseDirectory.AppData });
 }
+
 
 async function addAchievement(achievement: Achievement): Promise<void> {
     let storedAchievements: Achievement[] = await getStoredAchievements();
 
     const foundIndex = storedAchievements.findIndex(ach => ach.name === achievement.name);
     if (foundIndex !== -1) {
-        storedAchievements[foundIndex].achieved = true; // Mettre à jour l'état achieved
+        storedAchievements[foundIndex].achieved = true;
     } else {
         storedAchievements.push(achievement);
     }
 
     await storeAchievements(storedAchievements);
 }
+
 
 function createAchievementToast(icon: string, title: string): void {
     const achievementToast = document.getElementById('achievementToast');
@@ -93,6 +97,7 @@ function createAchievementToast(icon: string, title: string): void {
         }, 5000);
     }
 }
+
 
 function displayAchievements(achievements: Achievement[]): void {
     const listElement = document.querySelector('.list');
@@ -178,5 +183,6 @@ async function handleAchievements(): Promise<void> {
         }, 3140);
     });
 }
+
 
 export { handleAchievements };

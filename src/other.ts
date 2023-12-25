@@ -3,7 +3,6 @@ import { writeTextFile, exists, createDir, BaseDirectory, removeFile, readTextFi
 import { sep } from '@tauri-apps/api/path';
 
 
-
 const textInput = document.getElementById('textInput') as HTMLTextAreaElement;
 const markdownOutput = document.getElementById('markdownOutput');
 
@@ -77,9 +76,10 @@ async function createAlias() {
     let zshrc = `.zshrc`;
     let bashrc = `.bashrc`;
     let alias = `
+    
 # SimpliciText
-alias st="open -a SimpliciText"
-alias simplicitext="open -a SimpliciText"`;
+alias st= open -a "SimpliciText"
+alias simplicitext= open -a "SimpliciText"`;
 
     if (await exists(zshrc, { dir: BaseDirectory.Home })) {
         let content = await readTextFile(zshrc, { dir: BaseDirectory.Home });

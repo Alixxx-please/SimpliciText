@@ -30,6 +30,8 @@ const outerBar = document.getElementById('exitPopup')
 const bar = document.getElementById('bar')
 const achievementToast = document.getElementById('achievementToast')
 const ul = document.querySelector('ul')
+const helpPage = document.getElementById('helpPage')
+let helpPageT = false
 
 
 document.addEventListener('input', async () => {
@@ -559,6 +561,20 @@ async function shortcuts() {
             }
         };
     });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === 'h') {
+            e.preventDefault();
+
+            helpPageT = !helpPageT
+            if (helpPage && helpPageT) {
+                helpPage.style.display = 'grid'
+                helpPage.style.animation = 'pageAnimationIn 0.2s linear forwards';
+            } else if (helpPage && !helpPageT) {
+                helpPage.style.animation = 'pageAnimationOut 0.2s linear forwards';
+            }
+        }
+    })
 };
 
 async function exitPopup() {
