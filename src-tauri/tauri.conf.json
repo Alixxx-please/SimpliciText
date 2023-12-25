@@ -13,16 +13,16 @@
     "allowlist": {
       "window": {
         "all": false,
-        "center": true,
+        "center": false,
         "close": true,
         "create": false,
-        "hide": true,
+        "hide": false,
         "maximize": false,
-        "minimize": true,
+        "minimize": false,
         "print": false,
-        "requestUserAttention": true,
+        "requestUserAttention": false,
         "setAlwaysOnTop": true,
-        "setClosable": true,
+        "setClosable": false,
         "setContentProtected": false,
         "setCursorGrab": false,
         "setCursorIcon": false,
@@ -42,7 +42,7 @@
         "setSize": false,
         "setSkipTaskbar": false,
         "setTitle": true,
-        "show": true,
+        "show": false,
         "startDragging": true,
         "unmaximize": false,
         "unminimize": false
@@ -62,7 +62,6 @@
           "$DOCUMENT/SimpliciText/*",
           "$APPDATA/*",
           "$APPDATA/achievements/*",
-          "$APPDATA/scripts/*",
           "$HOME/.zshrc",
           "$HOME/.bashrc"
         ]
@@ -96,7 +95,7 @@
       {
         "fullscreen": false,
         "resizable": true,
-        "title": "wysiwyg",
+        "title": "SimpliciText",
         "width": 800,
         "height": 600,
         "titleBarStyle": "Overlay",
