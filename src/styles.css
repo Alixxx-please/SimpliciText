@@ -10,7 +10,7 @@ body, html {
   padding: 0;
 }
 
-textarea {
+#textInput {
   z-index: 1;
   resize: none;
   width: 100%;
@@ -30,7 +30,7 @@ textarea {
   line-height: 1.3;
 }
 
-textarea::placeholder {
+#textInput::placeholder {
   color: var(--placeholder-Color, '#ffe6e6');
   font-size: 150%;
   opacity: 0.5;

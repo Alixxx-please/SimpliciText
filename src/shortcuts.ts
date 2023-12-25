@@ -286,6 +286,7 @@ async function shortcuts() {
     setInterval(updateStats, 1000);
 
     // Ctrl + Alt + + / - changes text size
+    // Ctrl + Alt + =
     document.addEventListener('keydown', (e) => {
         if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === '+') {
             e.preventDefault();
