@@ -74,6 +74,7 @@ async function autoSave() {
 
 async function createAlias() {
     let zshrc = `.zshrc`;
+
     let bashrc = `.bashrc`;
     let alias = `
     

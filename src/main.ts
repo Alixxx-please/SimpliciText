@@ -1,5 +1,4 @@
-import { shortcuts } from './shortcuts';
-import { exitPopup } from './shortcuts';
+import { shortcuts, exitHandler } from './shortcuts';
 import { handleAchievements } from './achievements';
 import { updateText } from './other';
 import { createAlias } from './other';
@@ -12,4 +11,4 @@ await shortcuts();
 await handleAchievements();
 await autoSave();
 await createAlias();
-await exitPopup();
+await exitHandler();
