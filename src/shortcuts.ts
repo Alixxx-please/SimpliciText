@@ -34,6 +34,7 @@ let lineCounterT = false;
 const exitPopup = document.getElementById('exitPopup');
 const helpPage = document.getElementById('helpPage');
 let helpPageT = false;
+let cell = document.querySelectorAll('.cell')
 
 
 document.addEventListener('input', async () => {
@@ -76,7 +77,7 @@ async function shortcuts() {
         if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === 'l') {
             e.preventDefault();
             darkModeT = !darkModeT;
-            if (textInput && markdownOutput && stats && tabNumber && exitPopup && bar && achievementToast && lineCounter && page && ul) {
+            if (textInput && markdownOutput && stats && tabNumber && exitPopup && bar && achievementToast && lineCounter && page && ul && helpPage && cell) {
                 textInput.style.caretColor = '#252525';
                 textInput.style.color = '#252525';
                 textInput.style.backgroundColor = '#fff4eb';
@@ -100,11 +101,16 @@ async function shortcuts() {
                 page.style.color = '#252525';
                 page.style.border = '2px solid #252525';
                 ul.style.color = '#252525';
+                helpPage.style.backgroundColor = '#ffeee0';
+                helpPage.style.border = '2px solid #252525';
+                cell.forEach((cell: any) => {
+                    cell.style.color = '#252525';
+                });
             };
         } else if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === 'd') {
             e.preventDefault();
             darkModeT = !darkModeT;
-            if (textInput && markdownOutput && stats && tabNumber && exitPopup && bar && achievementToast && lineCounter && page && ul) {
+            if (textInput && markdownOutput && stats && tabNumber && exitPopup && bar && achievementToast && lineCounter && page && ul && helpPage && cell) {
                 textInput.style.caretColor = '#fff4eb';
                 textInput.style.color = '#fff4eb';
                 textInput.style.backgroundColor = '#252525';
@@ -128,6 +134,11 @@ async function shortcuts() {
                 page.style.color = '#fff4eb';
                 page.style.border = '2px solid #fff4eb';
                 ul.style.color = '#fff4eb';
+                helpPage.style.backgroundColor = '#202020';
+                helpPage.style.border = '2px solid #fff4eb';
+                cell.forEach((cell: any) => {
+                    cell.style.color = '#fff4eb';
+                });
             };
         };
 
