@@ -37,6 +37,8 @@ let helpPageT = false;
 let cell = document.querySelectorAll('.cell')
 
 
+let tabContent: { [key: number]: { textarea: string, markdown: string } } = {};
+let currentTab: number = 1;
 document.addEventListener('input', async () => {
     windowTitle = textInput.value.substring(0, 8);
     await appWindow.setTitle(windowTitle);
@@ -269,8 +271,6 @@ async function shortcuts() {
         };
 
         // Ctrl + Alt + 1 / 2 / 3 / 4 / 5 / 6 / 7 / 8 / 9 / 0
-        let tabContent: { [key: number]: { textarea: string, markdown: string } } = {};
-        let currentTab: number = 1;
         if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() >= '0' && e.key.toLocaleLowerCase() <= '9') {
             e.preventDefault();
             const markdownText = textInput.value;
@@ -285,12 +285,15 @@ async function shortcuts() {
                 if (markdownOutput) {
                     markdownOutput.innerHTML = tabContent[tabNumberManager].markdown;
                 };
+                windowTitle = tabContent[tabNumberManager].textarea.substring(0, 8);
+                await appWindow.setTitle(windowTitle);
             } else {
                 textInput.value = '';
                 if (markdownOutput) {
                     markdownOutput.innerHTML = '';
                 };
                 windowTitle = '';
+                await appWindow.setTitle(windowTitle);
             };
             number = e.key.toLocaleLowerCase();
             if (tabNumber) {
