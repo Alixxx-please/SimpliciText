@@ -157,8 +157,8 @@ async function shortcuts() {
             e.preventDefault();
             split = !split;
             if (textInput && markdownOutput && split) {
-                textInput.style.bottom = '0';
-                markdownOutput.style.top = '0';
+                textInput.style.bottom = '';
+                markdownOutput.style.top = '';
                 markdownOutput.style.bottom = '0';
                 markdownOutput.style.display = 'block';
                 textInput.style.width = '100%';
@@ -168,10 +168,10 @@ async function shortcuts() {
             } else if (textInput && markdownOutput && !split) {
                 textInput.style.width = '100%';
                 markdownOutput.style.width = '0%';
-                textInput.style.animation = '0';
+                textInput.style.animation = '';
                 textInput.style.height = '100%';
                 markdownOutput.style.height = '0%';
-                markdownOutput.style.bottom = '0';
+                markdownOutput.style.bottom = '';
                 markdownOutput.style.display = 'none';
             };
         } else if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === 'arrowdown') {
@@ -187,9 +187,9 @@ async function shortcuts() {
                 markdownOutput.style.animation = 'markdownBottom 0.2s linear forwards';
                 textInput.style.animation = 'textareaBottom 0.2s linear forwards';
             } else if (textInput && markdownOutput && !split) {
-                markdownOutput.style.top = '0';
+                markdownOutput.style.top = '';
                 textInput.style.width = '100%';
-                textInput.style.animation = '0';
+                textInput.style.animation = '';
                 markdownOutput.style.width = '0%';
                 textInput.style.height = '100%';
                 markdownOutput.style.height = '0%';
@@ -199,8 +199,8 @@ async function shortcuts() {
             e.preventDefault();
             split = !split;
             if (textInput && markdownOutput && split) {
-                textInput.style.right = '0';
-                markdownOutput.style.left = '0';
+                textInput.style.right = '';
+                markdownOutput.style.left = '';
                 textInput.style.left = '0';
                 markdownOutput.style.right = '0';
                 markdownOutput.style.display = 'block';
@@ -210,22 +210,22 @@ async function shortcuts() {
                 markdownOutput.style.animation = 'markdownLeft 0.2s linear forwards';
                 textInput.style.animation = 'textareaLeft 0.2s linear forwards';
             } else if (textInput && markdownOutput && !split) {
-                textInput.style.right = '0';
-                markdownOutput.style.left = '0';
+                textInput.style.right = '';
+                markdownOutput.style.left = '';
                 textInput.style.width = '100%';
-                textInput.style.animation = '0'
+                textInput.style.animation = ''
                 markdownOutput.style.width = '0%';
                 textInput.style.height = '100%';
                 markdownOutput.style.height = '0%';
-                markdownOutput.style.right = '0';
+                markdownOutput.style.right = '';
                 markdownOutput.style.display = 'none';
             };
         } else if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === 'arrowright') {
             e.preventDefault();
             split = !split;
             if (textInput && markdownOutput && split) {
-                textInput.style.left = '0';
-                markdownOutput.style.right = '0';
+                textInput.style.left = '';
+                markdownOutput.style.right = '';
                 textInput.style.right = '0';
                 markdownOutput.style.left = '0';
                 markdownOutput.style.display = 'block';
@@ -236,9 +236,9 @@ async function shortcuts() {
                 textInput.style.animation = 'textareaRight 0.2s linear forwards';
 
             } else if (textInput && markdownOutput && !split) {
-                markdownOutput.style.left = '0';
+                markdownOutput.style.left = '';
                 textInput.style.width = '100%';
-                textInput.style.animation = '0';
+                textInput.style.animation = '';
                 markdownOutput.style.width = '0%';
                 textInput.style.height = '100%';
                 markdownOutput.style.height = '0%';
