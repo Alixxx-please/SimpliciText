@@ -39,4 +39,4 @@ jobs:
     - name: Install Tauri CLI
       run: cargo install tauri-cli
     - name: Build backend
-      run: cargo tauri build -c '{"build":{"beforeBuildCommand":""}}'
+      run: cargo tauri build'
