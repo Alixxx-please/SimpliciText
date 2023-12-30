@@ -6,7 +6,7 @@ jobs:
   build_frontend:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4.1.1
     - name: Set up Bun
       run: |
         curl -fsSL https://bun.sh/install | bash
@@ -16,7 +16,7 @@ jobs:
         bun install
         bun run build
     - name: Upload artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4.0.0
       with:
         name: dist
         path: distDir/
@@ -25,13 +25,13 @@ jobs:
     needs: build_frontend
     runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4.1.1
     - name: Download artifact
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v4.1.0
       with:
         name: dist
     - name: Set up Rust toolchain
-      uses: actions-rs/toolchain@v1
+      uses: actions-rs/toolchain@v1.0.6
       with:
         profile: minimal
         toolchain: stable
