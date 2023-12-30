@@ -7,10 +7,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4.1.1
-    - name: Set up Bun
-      run: |
-        curl -fsSL https://bun.sh/install | bash
-        echo "$HOME/.bun/bin" >> $GITHUB_PATH
+    - name: Setup Bun
+      uses: oven-sh/setup-bun@v1.1.1
     - name: Install dependencies and build
       run: |
         bun install
@@ -30,6 +28,7 @@ jobs:
       uses: actions/download-artifact@v4.1.0
       with:
         name: dist
+        path: dist/
     - name: Set up Rust toolchain
       uses: actions-rs/toolchain@v1.0.6
       with:
