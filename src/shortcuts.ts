@@ -2,6 +2,8 @@ import { exit } from '@tauri-apps/api/process';
 import { appWindow } from "@tauri-apps/api/window";
 import { marked } from 'marked';
 import { fonts } from './fonts'
+import { version } from '@tauri-apps/api/os';
+import { message } from '@tauri-apps/api/dialog';
 
 
 let darkModeT = true;
@@ -331,25 +333,24 @@ async function shortcuts() {
         };
 
         // Ctrl + Alt + V
-        //let originalTextareaBg: string | null = null;
-        //let originalMarkdownOutputBg: string | null = null;
         if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === 'v') {
             e.preventDefault();
-            vibrancyT = !vibrancyT;
-            if (vibrancyT && textInput && markdownOutput) {
-                //originalTextareaBg = textInput.style.backgroundColor;
-                //originalMarkdownOutputBg = markdownOutput.style.backgroundColor;
-                textInput.classList.add('transparent');
-                textInput.classList.remove('opaque');
-                markdownOutput.classList.add('transparent');
-                markdownOutput.classList.remove('opaque');
-            } else if (!vibrancyT && textInput && markdownOutput) {
-                textInput.classList.remove('transparent');
-                textInput.classList.add('opaque');
-                markdownOutput.classList.remove('transparent');
-                markdownOutput.classList.add('opaque');
-                //textInput.style.backgroundColor = originalTextareaBg;
-                //markdownOutput.style.backgroundColor = originalMarkdownOutputBg;
+            const osVersion = parseFloat(await version());
+            if (osVersion >= 10.10) {
+                vibrancyT = !vibrancyT;
+                if (vibrancyT && textInput && markdownOutput) {
+                    textInput.classList.add('transparent');
+                    textInput.classList.remove('opaque');
+                    markdownOutput.classList.add('transparent');
+                    markdownOutput.classList.remove('opaque');
+                } else if (!vibrancyT && textInput && markdownOutput) {
+                    textInput.classList.remove('transparent');
+                    textInput.classList.add('opaque');
+                    markdownOutput.classList.remove('transparent');
+                    markdownOutput.classList.add('opaque');
+                };
+            } else {
+                await message('Press enter to close this message', 'Unfortunately, vibrancy is only available on macOS 10.10 or later :(');
             };
         };
 

@@ -72,6 +72,9 @@
       "path": {
         "all": true
       },
+      "dialog": {
+        "message": true
+      },
       "process": {
         "all": false,
         "exit": true,
