@@ -1,11 +1,11 @@
 import { marked } from 'marked';
 import { writeTextFile, exists, createDir, BaseDirectory, removeFile, readTextFile } from '@tauri-apps/api/fs';
 import { sep } from '@tauri-apps/api/path';
+import { defaultExtension } from './shortcuts';
 
 
 const textInput = document.getElementById('textInput') as HTMLTextAreaElement;
 const markdownOutput = document.getElementById('markdownOutput');
-
 let date = new Date();
 let year = date.getFullYear();
 let month = (date.getMonth() + 1).toString().padStart(2, '0');
@@ -14,13 +14,17 @@ let hours = date.getHours().toString().padStart(2, '0');
 let minutes = date.getMinutes().toString().padStart(2, '0');
 let seconds = date.getSeconds().toString().padStart(2, '0');
 let firstId = `${year}${month}${day}T${hours};${minutes};${seconds}`;
+let currentExtension = '';
 
 
 // Prevents right click
 document.addEventListener("contextmenu", (e) => {
     e.preventDefault();
-}); 
-
+});
+document.addEventListener('currentExtensionChanged', (e: Event) => {
+    currentExtension = (e as CustomEvent).detail;
+    console.log(currentExtension);
+});
 async function updateText() {
     const markdownText = textInput.value;
     const htmlText = await marked(markdownText);
@@ -32,44 +36,63 @@ textInput.addEventListener('input', updateText);
 
 async function autoSave() {
     if (!await exists('SimpliciText', { dir: BaseDirectory.Document })) {
-        console.log('Creating directory');
         await createDir('SimpliciText', { dir: BaseDirectory.Document, recursive: true });
-    }
+    };
 
     document.addEventListener('input', async () => {
         let fileName = textInput.value.substring(0, 8);
+        let date = new Date();
+        let year = date.getFullYear();
+        let month = (date.getMonth() + 1).toString().padStart(2, '0');
+        let day = date.getDate().toString().padStart(2, '0');
+        let hours = date.getHours().toString().padStart(2, '0');
+        let minutes = date.getMinutes().toString().padStart(2, '0');
+        let seconds = date.getSeconds().toString().padStart(2, '0');
+        let secondId = `${year}${month}${day}T${hours};${minutes};${seconds}`;
+        if (defaultExtension) {
+            if (textInput.value.length < 8 && textInput.value.length > 0) {
+                if (await exists(`SimpliciText${sep}${firstId}.md`, { dir: BaseDirectory.Document })) {
+                    await removeFile(`SimpliciText${sep}${firstId}.md`, { dir: BaseDirectory.Document });
+                    await writeTextFile(`SimpliciText${sep}${secondId}.md`, `${textInput?.value}`, { dir: BaseDirectory.Document });
+                    firstId = secondId;
+                } else {
+                    await writeTextFile(`SimpliciText${sep}${firstId}.md`, `${textInput?.value}`, { dir: BaseDirectory.Document });
+                };
+            } else if (textInput.value.length >= 8) {
+                if (await exists(`SimpliciText${sep}${firstId}.md`, { dir: BaseDirectory.Document })) {
+                    await removeFile(`SimpliciText${sep}${firstId}.md`, { dir: BaseDirectory.Document });
+                };
+                await writeTextFile(`SimpliciText${sep}${fileName}.md`, `${textInput?.value}`, { dir: BaseDirectory.Document });
+                firstId = fileName;
+            } else if (textInput.value.length === 0) {
+                if (await exists(`SimpliciText${sep}${firstId}.md`, { dir: BaseDirectory.Document })) {
+                    await removeFile(`SimpliciText${sep}${firstId}.md`, { dir: BaseDirectory.Document });
+                };
+            };
+        } else if (!defaultExtension) {
+            if (textInput.value.length < 8 && textInput.value.length > 0) {
+                if (await exists(`SimpliciText${sep}${firstId}${currentExtension}`, { dir: BaseDirectory.Document })) {
+                    await removeFile(`SimpliciText${sep}${firstId}${currentExtension}`, { dir: BaseDirectory.Document });
+                    await writeTextFile(`SimpliciText${sep}${secondId}${currentExtension}`, `${textInput?.value}`, { dir: BaseDirectory.Document });
+                    firstId = secondId;
+                } else {
+                    await writeTextFile(`SimpliciText${sep}${firstId}${currentExtension}`, `${textInput?.value}`, { dir: BaseDirectory.Document });
+                }
+            } else if (textInput.value.length >= 8) {
+                if (await exists(`SimpliciText${sep}${firstId}${currentExtension}`, { dir: BaseDirectory.Document })) {
+                    await removeFile(`SimpliciText${sep}${firstId}${currentExtension}`, { dir: BaseDirectory.Document });
+                }
+                await writeTextFile(`SimpliciText${sep}${fileName}${currentExtension}`, `${textInput?.value}`, { dir: BaseDirectory.Document });
+                firstId = fileName;
+            } else if (textInput.value.length === 0) {
+                if (await exists(`SimpliciText${sep}${firstId}${currentExtension}`, { dir: BaseDirectory.Document })) {
+                    await removeFile(`SimpliciText${sep}${firstId}${currentExtension}`, { dir: BaseDirectory.Document });
+                };
+            };
+        };
+    });
+};
 
-        if (textInput.value.length < 8 && textInput.value.length > 0) {
-            let date = new Date();
-            let year = date.getFullYear();
-            let month = (date.getMonth() + 1).toString().padStart(2, '0');
-            let day = date.getDate().toString().padStart(2, '0');
-            let hours = date.getHours().toString().padStart(2, '0');
-            let minutes = date.getMinutes().toString().padStart(2, '0');
-            let seconds = date.getSeconds().toString().padStart(2, '0');
-            let secondId = `${year}${month}${day}T${hours};${minutes};${seconds}`;
-
-            if (await exists(`SimpliciText${sep}${firstId}.md`, { dir: BaseDirectory.Document })) {
-                await removeFile(`SimpliciText${sep}${firstId}.md`, { dir: BaseDirectory.Document });
-                await writeTextFile(`SimpliciText${sep}${secondId}.md`, `${textInput?.value}`, { dir: BaseDirectory.Document });
-                firstId = secondId; // Update the firstId variable with the new id
-            } else {
-                await writeTextFile(`SimpliciText${sep}${firstId}.md`, `${textInput?.value}`, { dir: BaseDirectory.Document });
-            }
-        } else if (textInput.value.length >= 8) {
-            if (await exists(`SimpliciText${sep}${firstId}.md`, { dir: BaseDirectory.Document })) {
-                await removeFile(`SimpliciText${sep}${firstId}.md`, { dir: BaseDirectory.Document });
-            }
-            await writeTextFile(`SimpliciText${sep}${fileName}.md`, `${textInput?.value}`, { dir: BaseDirectory.Document });
-            firstId = fileName;
-        } else if (textInput.value.length === 0) {
-            if (await exists(`SimpliciText${sep}${firstId}.md`, { dir: BaseDirectory.Document })) {
-                await removeFile(`SimpliciText${sep}${firstId}.md`, { dir: BaseDirectory.Document });
-            }
-
-        }
-    })
-}
 
 
 async function createAlias() {

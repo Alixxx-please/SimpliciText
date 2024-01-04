@@ -4,6 +4,8 @@ import { marked } from 'marked';
 import { fonts } from './fonts'
 import { version } from '@tauri-apps/api/os';
 import { message } from '@tauri-apps/api/dialog';
+import { writeTextFile, exists, BaseDirectory, removeFile } from '@tauri-apps/api/fs';
+import { sep } from '@tauri-apps/api/path';
 
 
 let darkModeT = true;
@@ -36,7 +38,19 @@ let lineCounterT = false;
 const exitPopup = document.getElementById('exitPopup');
 const helpPage = document.getElementById('helpPage');
 let helpPageT = false;
-let cell = document.querySelectorAll('.cell')
+let cell = document.querySelectorAll('.cell');
+let currentExtensionIndex = 0;
+let currentExtension = '.md';
+let fileExtensions = ['.md', '.html'];
+let defaultExtension = true;
+let date = new Date();
+let year = date.getFullYear();
+let month = (date.getMonth() + 1).toString().padStart(2, '0');
+let day = date.getDate().toString().padStart(2, '0');
+let hours = date.getHours().toString().padStart(2, '0');
+let minutes = date.getMinutes().toString().padStart(2, '0');
+let seconds = date.getSeconds().toString().padStart(2, '0');
+let firstId = `${year}${month}${day}T${hours};${minutes};${seconds}`;
 
 
 let tabContent: { [key: number]: { textarea: string, markdown: string } } = {};
@@ -487,6 +501,94 @@ async function shortcuts() {
                 helpPage.style.animation = 'pageAnimationOut 0.2s linear forwards';
             };
         };
+
+        // Ctrl + Alt + E
+        if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === 'e') {
+            e.preventDefault();
+            currentExtensionIndex = (currentExtensionIndex + 1) % fileExtensions.length;
+            currentExtension = fileExtensions[currentExtensionIndex];
+            if (tabNumber) {
+                const currentColor = tabNumber.style.color;
+                const currentTextShadow = tabNumber.style.textShadow;
+                tabNumber.remove();
+                tabNumber = document.createElement('div');
+                tabNumber.id = 'tabNumber';
+                document.body.appendChild(tabNumber);
+                tabNumber.style.color = currentColor;
+                tabNumber.style.textShadow = currentTextShadow;
+                tabNumber.style.display = 'block';
+                tabNumber.innerHTML = currentExtension;
+                setTimeout(() => {
+                    if (tabNumber) {
+                        tabNumber.style.display = 'none';
+                    };
+                }, 1000);
+            };
+            const event = new CustomEvent('currentExtensionChanged', { detail: currentExtension });
+            document.dispatchEvent(event);
+        };
+
+        // Ctrl + Alt + S
+        if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === 's' && defaultExtension) {
+            e.preventDefault();
+            let fileName = textInput.value.substring(0, 8);
+            let date = new Date();
+            let year = date.getFullYear();
+            let month = (date.getMonth() + 1).toString().padStart(2, '0');
+            let day = date.getDate().toString().padStart(2, '0');
+            let hours = date.getHours().toString().padStart(2, '0');
+            let minutes = date.getMinutes().toString().padStart(2, '0');
+            let seconds = date.getSeconds().toString().padStart(2, '0');
+            if (defaultExtension) {
+                if (textInput.value.length < 8 && textInput.value.length > 0) {
+                    let secondId = `${year}${month}${day}T${hours};${minutes};${seconds}`;
+                    if (await exists(`SimpliciText${sep}${firstId}${currentExtension}`, { dir: BaseDirectory.Document })) {
+                        await removeFile(`SimpliciText${sep}${firstId}${currentExtension}`, { dir: BaseDirectory.Document });
+                        await writeTextFile(`SimpliciText${sep}${secondId}${currentExtension}`, `${textInput?.value}`, { dir: BaseDirectory.Document });
+                        firstId = secondId;
+                    } else {
+                        await writeTextFile(`SimpliciText${sep}${firstId}${currentExtension}`, `${textInput?.value}`, { dir: BaseDirectory.Document });
+                    };
+                } else if (textInput.value.length >= 8) {
+                    if (await exists(`SimpliciText${sep}${firstId}${currentExtension}`, { dir: BaseDirectory.Document })) {
+                        await removeFile(`SimpliciText${sep}${firstId}${currentExtension}`, { dir: BaseDirectory.Document });
+                    };
+                    await writeTextFile(`SimpliciText${sep}${fileName}${currentExtension}`, `${textInput?.value}`, { dir: BaseDirectory.Document });
+                    firstId = fileName;
+                } else if (textInput.value.length === 0) {
+                    if (await exists(`SimpliciText${sep}${firstId}${currentExtension}`, { dir: BaseDirectory.Document })) {
+                        await removeFile(`SimpliciText${sep}${firstId}${currentExtension}`, { dir: BaseDirectory.Document });
+                    };
+                };
+            } else if (!defaultExtension) {
+                if (textInput.value.length < 8 && textInput.value.length > 0) {
+                    let secondId = `${year}${month}${day}T${hours};${minutes};${seconds}`;
+                    if (await exists(`SimpliciText${sep}${firstId}.md`, { dir: BaseDirectory.Document })) {
+                        await removeFile(`SimpliciText${sep}${firstId}.md`, { dir: BaseDirectory.Document });
+                        await writeTextFile(`SimpliciText${sep}${secondId}.md`, `${textInput?.value}`, { dir: BaseDirectory.Document });
+                        firstId = secondId;
+                    } else {
+                        await writeTextFile(`SimpliciText${sep}${firstId}.md`, `${textInput?.value}`, { dir: BaseDirectory.Document });
+                    };
+                } else if (textInput.value.length >= 8) {
+                    if (await exists(`SimpliciText${sep}${firstId}.md`, { dir: BaseDirectory.Document })) {
+                        await removeFile(`SimpliciText${sep}${firstId}.md`, { dir: BaseDirectory.Document });
+                    };
+                    await writeTextFile(`SimpliciText${sep}${fileName}.md`, `${textInput?.value}`, { dir: BaseDirectory.Document });
+                    firstId = fileName;
+                } else if (textInput.value.length === 0) {
+                    if (await exists(`SimpliciText${sep}${firstId}.md`, { dir: BaseDirectory.Document })) {
+                        await removeFile(`SimpliciText${sep}${firstId}.md`, { dir: BaseDirectory.Document });
+                    };
+                };
+            };
+        };
+
+        // Ctrl + Alt + I
+        if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === 'i') {
+            e.preventDefault();
+            defaultExtension = !defaultExtension;
+        };
     });
 };
 
@@ -495,11 +597,10 @@ async function exitHandler() {
     document.addEventListener('keydown', async (e) => {
         if (e.key.toLocaleLowerCase() === 'escape') {
             e.preventDefault();
-
             if (fontBox?.style.display === 'block') {
-                wasOpened = true
-                fontBox.style.display = 'none'
-            }
+                wasOpened = true;
+                fontBox.style.display = 'none';
+            };
             if (exitPopup && bar) {
                 exitPopup.style.display = 'block';
                 bar.style.animation = 'exit 2s ease-in-out forwards';
@@ -508,28 +609,27 @@ async function exitHandler() {
                 bar.addEventListener('animationend', async () => {
                     await exit();
                 });
-            }
-        }
+            };
+        };
     });
 
     document.addEventListener('keyup', (e) => {
         if (e.key.toLocaleLowerCase() === 'escape') {
             e.preventDefault();
-
             if (exitPopup && bar) {
                 exitPopup.style.display = 'none';
                 bar.style.animation = '';
-            }
-            
+            };
             if (wasOpened && fontBox) {
-                fontBox.style.display = 'block'
-                fontInput.focus()
-            }
-            wasOpened = false
-        }
+                fontBox.style.display = 'block';
+                fontInput.focus();
+            };
+            wasOpened = false;
+        };
     });
-}
+};
 
 
-export { shortcuts }
-export { exitHandler }
+export { shortcuts };
+export { exitHandler };
+export { defaultExtension };
