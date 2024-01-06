@@ -6,10 +6,9 @@ import { defaultExtension } from './shortcuts';
 
 const textInput = document.getElementById('textInput') as HTMLTextAreaElement;
 const markdownOutput = document.getElementById('markdownOutput');
-let currentExtension = '';
+let currentExtension = '.md';
 let tabNumber = '1';
-let tabContent = '';
-let fileIds: Record<string, string> = {};
+export let fileIds: Record<string, string> = {};
 
 // Prevents right click
 document.addEventListener("contextmenu", (e) => {
@@ -17,8 +16,6 @@ document.addEventListener("contextmenu", (e) => {
 });
 window.addEventListener('tabChanged', (e: Event) => {
     tabNumber = (e as CustomEvent).detail.tabNumber;
-    tabContent = (e as CustomEvent).detail.tabContent;
-    console.log(tabNumber)
     return tabNumber;
 });
 document.addEventListener('currentExtensionChanged', (e: Event) => {
@@ -34,7 +31,7 @@ async function updateText() {
 }
 textInput.addEventListener('input', updateText);
 
-function generateId() {
+export function generateId() {
     let date = new Date();
     let year = date.getFullYear();
     let month = (date.getMonth() + 1).toString().padStart(2, '0');
@@ -57,7 +54,7 @@ async function autoSave() {
         if (!currentFileId) {
             currentFileId = secondId;
             fileIds[tabNumber] = currentFileId;
-        }
+        };
         if (defaultExtension) {
             if (textInput.value.length < 8 && textInput.value.length > 0) {
                 if (await exists(`SimpliciText${sep}${currentFileId}.md`, { dir: BaseDirectory.Document })) {

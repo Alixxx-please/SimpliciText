@@ -6,6 +6,8 @@ import { version } from '@tauri-apps/api/os';
 import { message } from '@tauri-apps/api/dialog';
 import { writeTextFile, exists, BaseDirectory, removeFile } from '@tauri-apps/api/fs';
 import { sep } from '@tauri-apps/api/path';
+import { generateId } from './other';
+import { fileIds } from './other';
 
 
 let darkModeT = true;
@@ -43,14 +45,6 @@ let currentExtensionIndex = 0;
 let currentExtension = '.md';
 let fileExtensions = ['.md', '.html'];
 let defaultExtension = true;
-let date = new Date();
-let year = date.getFullYear();
-let month = (date.getMonth() + 1).toString().padStart(2, '0');
-let day = date.getDate().toString().padStart(2, '0');
-let hours = date.getHours().toString().padStart(2, '0');
-let minutes = date.getMinutes().toString().padStart(2, '0');
-let seconds = date.getSeconds().toString().padStart(2, '0');
-let firstId = `${year}${month}${day}T${hours};${minutes};${seconds}`;
 
 
 let tabContent: { [key: number]: { textarea: string, markdown: string } } = {};
@@ -332,7 +326,6 @@ async function shortcuts() {
             const event = new CustomEvent('tabChanged', { 
                 detail: {
                     tabNumber: number,
-                    tabContent: tabContent[currentTab],
                 }
             });
             window.dispatchEvent(event);
@@ -537,53 +530,50 @@ async function shortcuts() {
         if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === 's' && defaultExtension) {
             e.preventDefault();
             let fileName = textInput.value.substring(0, 8);
-            let date = new Date();
-            let year = date.getFullYear();
-            let month = (date.getMonth() + 1).toString().padStart(2, '0');
-            let day = date.getDate().toString().padStart(2, '0');
-            let hours = date.getHours().toString().padStart(2, '0');
-            let minutes = date.getMinutes().toString().padStart(2, '0');
-            let seconds = date.getSeconds().toString().padStart(2, '0');
+            let secondId = generateId();
+            let currentFileId = fileIds[number];
+            if (!currentFileId) {
+                currentFileId = secondId;
+                fileIds[number] = currentFileId;
+            };
             if (defaultExtension) {
                 if (textInput.value.length < 8 && textInput.value.length > 0) {
-                    let secondId = `${year}${month}${day}T${hours};${minutes};${seconds}`;
-                    if (await exists(`SimpliciText${sep}${firstId}${currentExtension}`, { dir: BaseDirectory.Document })) {
-                        await removeFile(`SimpliciText${sep}${firstId}${currentExtension}`, { dir: BaseDirectory.Document });
+                    if (await exists(`SimpliciText${sep}${currentFileId}${currentExtension}`, { dir: BaseDirectory.Document })) {
+                        await removeFile(`SimpliciText${sep}${currentFileId}${currentExtension}`, { dir: BaseDirectory.Document });
                         await writeTextFile(`SimpliciText${sep}${secondId}${currentExtension}`, `${textInput?.value}`, { dir: BaseDirectory.Document });
-                        firstId = secondId;
+                        fileIds[number] = secondId;
                     } else {
-                        await writeTextFile(`SimpliciText${sep}${firstId}${currentExtension}`, `${textInput?.value}`, { dir: BaseDirectory.Document });
+                        await writeTextFile(`SimpliciText${sep}${currentFileId}${currentExtension}`, `${textInput?.value}`, { dir: BaseDirectory.Document });
                     };
                 } else if (textInput.value.length >= 8) {
-                    if (await exists(`SimpliciText${sep}${firstId}${currentExtension}`, { dir: BaseDirectory.Document })) {
-                        await removeFile(`SimpliciText${sep}${firstId}${currentExtension}`, { dir: BaseDirectory.Document });
+                    if (await exists(`SimpliciText${sep}${currentFileId}${currentExtension}`, { dir: BaseDirectory.Document })) {
+                        await removeFile(`SimpliciText${sep}${currentFileId}${currentExtension}`, { dir: BaseDirectory.Document });
                     };
                     await writeTextFile(`SimpliciText${sep}${fileName}${currentExtension}`, `${textInput?.value}`, { dir: BaseDirectory.Document });
-                    firstId = fileName;
+                    fileIds[number] = fileName;
                 } else if (textInput.value.length === 0) {
-                    if (await exists(`SimpliciText${sep}${firstId}${currentExtension}`, { dir: BaseDirectory.Document })) {
-                        await removeFile(`SimpliciText${sep}${firstId}${currentExtension}`, { dir: BaseDirectory.Document });
+                    if (await exists(`SimpliciText${sep}${currentFileId}${currentExtension}`, { dir: BaseDirectory.Document })) {
+                        await removeFile(`SimpliciText${sep}${currentFileId}${currentExtension}`, { dir: BaseDirectory.Document });
                     };
                 };
             } else if (!defaultExtension) {
                 if (textInput.value.length < 8 && textInput.value.length > 0) {
-                    let secondId = `${year}${month}${day}T${hours};${minutes};${seconds}`;
-                    if (await exists(`SimpliciText${sep}${firstId}.md`, { dir: BaseDirectory.Document })) {
-                        await removeFile(`SimpliciText${sep}${firstId}.md`, { dir: BaseDirectory.Document });
+                    if (await exists(`SimpliciText${sep}${currentFileId}.md`, { dir: BaseDirectory.Document })) {
+                        await removeFile(`SimpliciText${sep}${currentFileId}.md`, { dir: BaseDirectory.Document });
                         await writeTextFile(`SimpliciText${sep}${secondId}.md`, `${textInput?.value}`, { dir: BaseDirectory.Document });
-                        firstId = secondId;
+                        fileIds[number] = secondId;
                     } else {
-                        await writeTextFile(`SimpliciText${sep}${firstId}.md`, `${textInput?.value}`, { dir: BaseDirectory.Document });
-                    };
+                        await writeTextFile(`SimpliciText${sep}${currentFileId}.md`, `${textInput?.value}`, { dir: BaseDirectory.Document });
+                    }
                 } else if (textInput.value.length >= 8) {
-                    if (await exists(`SimpliciText${sep}${firstId}.md`, { dir: BaseDirectory.Document })) {
-                        await removeFile(`SimpliciText${sep}${firstId}.md`, { dir: BaseDirectory.Document });
-                    };
+                    if (await exists(`SimpliciText${sep}${currentFileId}.md`, { dir: BaseDirectory.Document })) {
+                        await removeFile(`SimpliciText${sep}${currentFileId}.md`, { dir: BaseDirectory.Document });
+                    }
                     await writeTextFile(`SimpliciText${sep}${fileName}.md`, `${textInput?.value}`, { dir: BaseDirectory.Document });
-                    firstId = fileName;
+                    fileIds[number] = fileName;
                 } else if (textInput.value.length === 0) {
-                    if (await exists(`SimpliciText${sep}${firstId}.md`, { dir: BaseDirectory.Document })) {
-                        await removeFile(`SimpliciText${sep}${firstId}.md`, { dir: BaseDirectory.Document });
+                    if (await exists(`SimpliciText${sep}${currentFileId}.md`, { dir: BaseDirectory.Document })) {
+                        await removeFile(`SimpliciText${sep}${currentFileId}.md`, { dir: BaseDirectory.Document });
                     };
                 };
             };
@@ -593,6 +583,7 @@ async function shortcuts() {
         if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === 'i') {
             e.preventDefault();
             defaultExtension = !defaultExtension;
+            sfx.play();
         };
     });
 };
