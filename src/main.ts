@@ -5,7 +5,6 @@ import { createAlias } from './other';
 import { autoSave } from './other';
 
 
-
 await updateText();
 await shortcuts();
 await handleAchievements();

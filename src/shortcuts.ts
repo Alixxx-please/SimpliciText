@@ -329,9 +329,14 @@ async function shortcuts() {
                     };
                 }, 1000);
             };
-            const event = new CustomEvent('tabChanged', { detail: { tabNumber: number } });
+            const event = new CustomEvent('tabChanged', { 
+                detail: {
+                    tabNumber: number,
+                    tabContent: tabContent[currentTab],
+                }
+            });
             window.dispatchEvent(event);
-            return number;
+            return parseInt(number);
         };
 
         // Ctrl + Alt + A
