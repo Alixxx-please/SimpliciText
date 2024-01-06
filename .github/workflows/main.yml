@@ -39,7 +39,7 @@ jobs:
       run: cargo install tauri-cli
     - name: Build backend
       run: cargo tauri build
-        - name: Get latest release
+    - name: Get latest release
       id: latest_release
       run: |
         LATEST_RELEASE=$(curl --silent "https://api.github.com/repos/Alixxx-please/SimpliciText/releases/latest" | jq -r .tag_name)
