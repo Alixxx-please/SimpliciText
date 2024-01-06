@@ -39,8 +39,13 @@ jobs:
       run: cargo install tauri-cli
     - name: Build backend
       run: cargo tauri build
+        - name: Get latest release
+      id: latest_release
+      run: |
+        LATEST_RELEASE=$(curl --silent "https://api.github.com/repos/Alixxx-please/SimpliciText/releases/latest" | jq -r .tag_name)
+        echo "::set-output name=version::${LATEST_RELEASE}"
     - name: Executables artifact
       uses: actions/upload-artifact@v4.0.0
       with:
         name: executables
-        path: D:\a\SimpliciText\SimpliciText\src-tauri\target\release\bundle\msi\SimpliciText_1.2.1_x64_en-US.msi
+        path: D:\a\SimpliciText\SimpliciText\src-tauri\target\release\bundle\msi\SimpliciText_${{ steps.latest_release.outputs.version }}_x64_en-US.msi
