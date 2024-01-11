@@ -11,17 +11,14 @@ import { fileIds } from './other';
 import { relaunch } from '@tauri-apps/api/process';
 
 
-let darkModeT = true;
 let textInput = document.getElementById('textInput') as HTMLTextAreaElement;
 const markdownOutput = document.getElementById('markdownOutput');
 let stats = document.getElementById('stats');
 let tabNumber = document.getElementById('tabNumber');
 const bar = document.getElementById('bar');
-const achievementToast = document.getElementById('achievementToast');
 let lineCounter = document.getElementById('lineCounter');
 let fontInput = document.getElementById('fontInput') as HTMLInputElement;
 const page = document.getElementById('page');
-const ul = document.querySelector('ul');
 let split = false;
 let pageOpenedT = false;
 let number = '';
@@ -41,13 +38,17 @@ let lineCounterT = false;
 const exitPopup = document.getElementById('exitPopup');
 const helpPage = document.getElementById('helpPage');
 let helpPageT = false;
-let cell = document.querySelectorAll('.cell');
 let currentExtensionIndex = 0;
 let currentExtension = '.md';
 let fileExtensions = ['.md', '.html'];
 let defaultExtension = true;
 let timeout: number | undefined;
 const theme = document.getElementById('theme') as HTMLLinkElement;
+const themes = [
+    '../src/themes/light.css',
+    '../src/themes/dark.css',
+]
+let themeIndex = 0;
 
 
 let tabContent: { [key: number]: { textarea: string, markdown: string } } = {};
@@ -88,25 +89,17 @@ updateStats();
 
 async function shortcuts() {
     document.addEventListener('keydown', async (e) => {
-        // Ctrl + Alt + L / D
-        if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === 'l') {
+        // Ctrl + Alt + T
+        if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === 't') {
             e.preventDefault();
-            if (theme) {
-                try {
-                    theme.href = '../src/themes/light.css';
-                } catch (e) {
-                    console.error(e);
-                }
-            };
-        } else if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === 'd') {
-            e.preventDefault();
-            if (theme) {
-                theme.href = '../src/themes/dark.css';
+            if (theme) {    
+                theme.href = themes[themeIndex];
+                themeIndex = (themeIndex + 1) % themes.length;
             };
         };
 
-        // Ctrl + Alt + T
-        if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === 't') {
+        // Ctrl + Alt + P
+        if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === 'p') {
             e.preventDefault();
             sfx.play();
             alwaysOnTop = !alwaysOnTop;

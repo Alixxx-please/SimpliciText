@@ -12,7 +12,7 @@ export let fileIds: Record<string, string> = {};
 
 // Prevents right click
 document.addEventListener("contextmenu", (e) => {
-    //e.preventDefault();
+    e.preventDefault();
 });
 window.addEventListener('tabChanged', (e: Event) => {
     tabNumber = (e as CustomEvent).detail.tabNumber;
