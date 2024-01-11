@@ -46,7 +46,8 @@ let currentExtensionIndex = 0;
 let currentExtension = '.md';
 let fileExtensions = ['.md', '.html'];
 let defaultExtension = true;
-let timeout: number | undefined
+let timeout: number | undefined;
+const theme = document.getElementById('theme') as HTMLLinkElement;
 
 
 let tabContent: { [key: number]: { textarea: string, markdown: string } } = {};
@@ -90,69 +91,17 @@ async function shortcuts() {
         // Ctrl + Alt + L / D
         if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === 'l') {
             e.preventDefault();
-            darkModeT = !darkModeT;
-            if (textInput && markdownOutput && stats && tabNumber && exitPopup && bar && achievementToast && lineCounter && page && ul && helpPage && cell) {
-                textInput.style.caretColor = '#252525';
-                textInput.style.color = '#252525';
-                textInput.style.backgroundColor = '#fff4eb';
-                textInput.style.setProperty('--placeholder-color', '#252525');
-                markdownOutput.style.backgroundColor = '#fff4eb';
-                markdownOutput.style.color = '#252525';
-                markdownOutput.style.borderColor = '#ffe0e0';
-                stats.style.color = '#252525';
-                tabNumber.style.color = '#fff4eb';
-                tabNumber.style.textShadow = "-2px -2px 0 #252525, 2px -2px 0 #252525, -2px 2px 0 #252525, 2px 2px 0 #252525";
-                exitPopup.style.border = '2px solid #ffeee0';
-                bar.style.backgroundColor = '#252525';
-                achievementToast.style.backgroundColor = '#ffeee0';
-                achievementToast.style.color = '#252525';
-                achievementToast.style.border = '2px solid #252525';
-                lineCounter.style.color = '#252525';
-                fontInput.style.border = '2px solid #252525';
-                fontInput.style.backgroundColor = '#ffeee0';
-                fontInput.style.color = '#252525';
-                page.style.backgroundColor = '#ffeee0';
-                page.style.color = '#252525';
-                page.style.border = '2px solid #252525';
-                ul.style.color = '#252525';
-                helpPage.style.backgroundColor = '#ffeee0';
-                helpPage.style.border = '2px solid #252525';
-                cell.forEach((cell: any) => {
-                    cell.style.color = '#252525';
-                });
+            if (theme) {
+                try {
+                    theme.href = '../src/themes/light.css';
+                } catch (e) {
+                    console.error(e);
+                }
             };
         } else if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === 'd') {
             e.preventDefault();
-            darkModeT = !darkModeT;
-            if (textInput && markdownOutput && stats && tabNumber && exitPopup && bar && achievementToast && lineCounter && page && ul && helpPage && cell) {
-                textInput.style.caretColor = '#fff4eb';
-                textInput.style.color = '#fff4eb';
-                textInput.style.backgroundColor = '#252525';
-                textInput.style.setProperty('--placeholder-color', '#fff4eb');
-                markdownOutput.style.backgroundColor = '#252525';
-                markdownOutput.style.color = '#fff4eb';
-                markdownOutput.style.borderColor = '#202020';
-                stats.style.color = '#fff4eb';
-                tabNumber.style.color = '#252525';
-                tabNumber.style.textShadow = "-2px -2px 0 #fff4eb, 2px -2px 0 #fff4eb, -2px 2px 0 #fff4eb, 2px 2px 0 #fff4eb";
-                exitPopup.style.border = '2px solid #202020';
-                bar.style.backgroundColor = '#fff4eb';
-                achievementToast.style.backgroundColor = '#202020';
-                achievementToast.style.color = '#fff4eb';
-                achievementToast.style.border = '2px solid #fff4eb';
-                lineCounter.style.color = '#fff4eb';
-                fontInput.style.border = '2px solid #fff4eb';
-                fontInput.style.backgroundColor = '#202020';
-                fontInput.style.color = '#fff4eb';
-                page.style.backgroundColor = '#202020';
-                page.style.color = '#fff4eb';
-                page.style.border = '2px solid #fff4eb';
-                ul.style.color = '#fff4eb';
-                helpPage.style.backgroundColor = '#202020';
-                helpPage.style.border = '2px solid #fff4eb';
-                cell.forEach((cell: any) => {
-                    cell.style.color = '#fff4eb';
-                });
+            if (theme) {
+                theme.href = '../src/themes/dark.css';
             };
         };
 

@@ -18,21 +18,17 @@ body, html {
   height: 100%;
   box-sizing: border-box;
   position: absolute;
-  background-color: #252525;
-  color: #fff4eb;
   padding-left: 6%;
   padding-right: 6%;
   padding-top: 5%;
   padding-bottom: 5%;
   border: none;
-  caret-color: #fff4eb;
   font-family: 'Consolas', monospace;
   font-size: 16px;
   line-height: 1.3;
 }
 
 #textInput::placeholder {
-  color: var(--placeholder-Color, '#ffe6e6');
   font-size: 150%;
   opacity: 0.5;
   font-family: 'Consolas', monospace;
@@ -43,8 +39,6 @@ body, html {
   z-index: 1;
   font-family: 'Consolas', monospace;
   position: absolute;
-  background-color: #252525;
-  color: #fff4eb;
   display: none;
   padding-left: 6%;
   padding-right: 6%;
@@ -54,7 +48,6 @@ body, html {
   line-height: 1.3;
   width: 0;
   height: 0;
-  border-color: #202020;
   border-width: thick;
   border-style: solid;
   box-sizing: border-box;
@@ -82,7 +75,6 @@ body, html {
   width: 6%;
   height: 100%;
   overflow: hidden;
-  color: #fff4eb;
   padding-top: 5%;
   padding-bottom: 5%;
   text-align: center;
@@ -106,7 +98,6 @@ body, html {
   top: 50%; 
   left: 50%;
   transform: translate(-50%, -50%);
-  border: 2px solid #202020;
   border-radius: 9px;
 }
 
@@ -115,7 +106,6 @@ body, html {
   height: 100%;
   width: 0%;
   border-radius: 9px;
-  background-color: #fff4eb;
 }
 
 @keyframes exit {
@@ -133,7 +123,6 @@ body, html {
   position: absolute;
   bottom: 1%;
   right: 1%;
-  color: #fff4eb;
   text-align: right;
   font-family: 'Consolas', monospace;
   font-size: medium;
@@ -152,22 +141,14 @@ body, html {
   top: 50%;
   left: 50%;
   font-size: 250px;
-  color: #252525;
   display: none;
   transform-origin: 50% 50%;
   animation: comeFromUser 0.3s forwards ease-out, stayAndGoBack 0.28s forwards 0.9s;
-  text-shadow: -2px -2px 0 #fff4eb,  
-               2px -2px 0 #fff4eb,
-               -2px 2px 0 #fff4eb,
-               2px 2px 0 #fff4eb;
 }
 
 
 #helpPage {
   z-index: 2;
-  background-color: #202020;
-  color: #fff4eb;
-  border: 2px solid #fff4eb;
   position: absolute;
   display: none;
   height: 88%;
@@ -188,7 +169,6 @@ body, html {
   min-height: 0;
   font-family: 'Consolas', monospace;
   font-size: 16px;
-  color: #fff4eb;
 }
 
 .cell #helpTitle {
@@ -204,9 +184,6 @@ body, html {
 
 #achievementToast {
   z-index: 2;
-  background-color: #202020;
-  color: #fff4eb;
-  border: 2px solid #fff4eb;
   position: absolute;
   text-align: center;
   bottom: 1%;
@@ -221,9 +198,6 @@ body, html {
 #page {
   z-index: 2;
   border-radius: 9px;
-  background-color: #202020;
-  color: #fff4eb;
-  border: 2px solid #fff4eb;
   height: 88%;
   width: 88%;
   position: absolute;
@@ -301,10 +275,7 @@ body, html {
   width: 100%;
   height: 100%;
   border-radius: 9px;
-  border: 2px solid #fff4eb;
-  background-color: #202020;
   padding-left: 2%;
-  color: #fff4eb;
   outline: none;
 }
 
@@ -317,7 +288,6 @@ body, html {
 
 ul {
   list-style: none;
-  color: #fff4eb;
   padding: 0;
   margin: 5px 0;
 }

@@ -63,7 +63,8 @@
           "$APPDATA/*",
           "$APPDATA/achievements/*",
           "$HOME/.zshrc",
-          "$HOME/.bashrc"
+          "$HOME/.bashrc",
+          "../src/themes/*"
         ]
       },
       "os": {
@@ -96,6 +97,7 @@
     },
     "windows": [
       {
+        "label": "main",
         "fullscreen": false,
         "resizable": true,
         "title": "SimpliciText",

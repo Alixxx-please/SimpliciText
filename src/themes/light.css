@@ -1,0 +1,89 @@
+@font-face {
+    font-family: 'VisbyRound';
+    src: url('./assets/fonts/VisbyRoundCF-Heavy.woff2') format('woff2'),
+         url('./assets/fonts/VisbyRoundCF-Heavy.woff') format('woff');
+}
+  
+  
+#textInput {
+    background-color: #fff4eb;
+    color: #252525;
+    caret-color: #252525;
+}
+  
+#textInput::placeholder {
+    color: #252525;
+}
+  
+  
+#markdownOutput {
+    background-color: #fff4eb;
+    color: #252525;
+    border-color: #ffe0e0;
+}
+  
+  
+#lineCounter {
+    color: #252525;
+}
+  
+  
+#exitPopup {
+    border: 2px solid #ffeee0;
+}
+  
+#exitPopup #bar {
+    background-color: #252525;
+}
+  
+  
+#stats {
+    color: #252525;
+}
+  
+  
+#tabNumber {
+    color: #fff4eb;
+    text-shadow: -2px -2px 0 #252525,  
+                 2px -2px 0 #252525,
+                 -2px 2px 0 #252525,
+                 2px 2px 0 #252525;
+}
+  
+  
+#helpPage {
+    background-color: #ffeee0;
+    color: #252525;
+    border: 2px solid #252525;
+}
+  
+  
+.cell {
+    color: #252525;
+}
+  
+  
+#achievementToast {
+    background-color: #ffeee0;
+    color: #252525;
+    border: 2px solid #252525;
+}
+  
+  
+#page {
+    background-color: #ffeee0;
+    color: #252525;
+    border: 2px solid #252525;
+}
+  
+  
+#fontBox #fontInput {
+    border: 2px solid #252525;
+    background-color: #ffeee0;
+    color: #252525;
+}
+  
+  
+ul {
+    color: #252525;
+}
