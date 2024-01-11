@@ -8,6 +8,7 @@ import { writeTextFile, exists, BaseDirectory, removeFile } from '@tauri-apps/ap
 import { sep } from '@tauri-apps/api/path';
 import { generateId } from './other';
 import { fileIds } from './other';
+import { relaunch } from '@tauri-apps/api/process';
 
 
 let darkModeT = true;
@@ -45,6 +46,7 @@ let currentExtensionIndex = 0;
 let currentExtension = '.md';
 let fileExtensions = ['.md', '.html'];
 let defaultExtension = true;
+let timeout: number | undefined
 
 
 let tabContent: { [key: number]: { textarea: string, markdown: string } } = {};
@@ -585,6 +587,21 @@ async function shortcuts() {
             defaultExtension = !defaultExtension;
             sfx.play();
         };
+
+        // Ctrl + Alt + R
+        if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === 'r') {
+            e.preventDefault();
+            timeout = setTimeout(async () => {
+                await relaunch();
+            }, 2000);
+        };
+        document.addEventListener('keyup', (e) => {
+            if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === 'r') {
+                e.preventDefault();
+                clearTimeout(timeout);
+                location.reload();
+            };
+        });
     });
 };
 

@@ -15,8 +15,17 @@
 </details>
 
 ## What
-**SimpliciText** can be described as a powerful, lightweight minimal text editor.
-Consider it as a better alternative to TextEdit. And it's 100% offline too!
+**SimpliciText** can be described as a simple, minimal, text editor.
+It's most useful to take quick notes, so think of it as an alternative to TextEdit rather than Notepad++. Better looking, more practical, weight only a few MBs, no reason not to try it!
+
+
+TLDR: 
+- dsjkhfdshf
+- dsjfhdjs
+- jzehzjkhf
+
+It's a 100% offline, free
+. And it's 100% offline too!
 Available for macOS \*for now, soon Windows\*
 
 ## Why
