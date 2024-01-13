@@ -200,7 +200,7 @@ async function shortcuts() {
             };
         };
         
-        // Ctrl + Alt + S
+        // Ctrl + Alt + M
         if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === 's') {
             e.preventDefault();
             statsT = !statsT;
