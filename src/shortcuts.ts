@@ -107,96 +107,62 @@ async function shortcuts() {
         };
 
         // Ctrl + Alt + Up / Down / Left / Right
-        if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === 'arrowup') {
-            e.preventDefault();
-            split = !split;
-            if (textInput && markdownOutput && split) {
-                textInput.style.bottom = '';
-                markdownOutput.style.top = '';
-                markdownOutput.style.bottom = '0';
-                markdownOutput.style.display = 'block';
-                textInput.style.width = '100%';
-                markdownOutput.style.width = '100%';
-                markdownOutput.style.animation = 'markdownTop 0.2s linear forwards';   
-                textInput.style.animation = 'textareaTop 0.2s linear forwards';
-            } else if (textInput && markdownOutput && !split) {
-                textInput.style.width = '100%';
-                markdownOutput.style.width = '0%';
-                textInput.style.animation = '';
-                textInput.style.height = '100%';
-                markdownOutput.style.height = '0%';
-                markdownOutput.style.bottom = '';
-                markdownOutput.style.display = 'none';
-            };
-        } else if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === 'arrowdown') {
-            e.preventDefault();
-            split = !split;
-            if (textInput && markdownOutput && split) {
-                textInput.style.bottom = '0';
-                markdownOutput.style.top = '0';
-                markdownOutput.style.display = 'block';
-                textInput.style.width = '100%';
-                markdownOutput.style.width = '100%';
-                markdownOutput.style.height = '50%';
-                markdownOutput.style.animation = 'markdownBottom 0.2s linear forwards';
-                textInput.style.animation = 'textareaBottom 0.2s linear forwards';
-            } else if (textInput && markdownOutput && !split) {
-                markdownOutput.style.top = '';
-                textInput.style.width = '100%';
-                textInput.style.animation = '';
-                markdownOutput.style.width = '0%';
-                textInput.style.height = '100%';
-                markdownOutput.style.height = '0%';
-                markdownOutput.style.display = 'none';
-            };
-        } else if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === 'arrowleft') {
-            e.preventDefault();
-            split = !split;
-            if (textInput && markdownOutput && split) {
-                textInput.style.right = '';
-                markdownOutput.style.left = '';
-                textInput.style.left = '0';
-                markdownOutput.style.right = '0';
-                markdownOutput.style.display = 'block';
-                markdownOutput.style.width = '50%';
-                textInput.style.height = '100%';
-                markdownOutput.style.height = '100%';
-                markdownOutput.style.animation = 'markdownLeft 0.2s linear forwards';
-                textInput.style.animation = 'textareaLeft 0.2s linear forwards';
-            } else if (textInput && markdownOutput && !split) {
-                textInput.style.right = '';
-                markdownOutput.style.left = '';
-                textInput.style.width = '100%';
-                textInput.style.animation = ''
-                markdownOutput.style.width = '0%';
-                textInput.style.height = '100%';
-                markdownOutput.style.height = '0%';
-                markdownOutput.style.right = '';
-                markdownOutput.style.display = 'none';
-            };
-        } else if (e.ctrlKey && e.altKey && e.key.toLocaleLowerCase() === 'arrowright') {
-            e.preventDefault();
-            split = !split;
-            if (textInput && markdownOutput && split) {
-                textInput.style.left = '';
-                markdownOutput.style.right = '';
-                textInput.style.right = '0';
-                markdownOutput.style.left = '0';
-                markdownOutput.style.display = 'block';
-                markdownOutput.style.width = '50%';
-                textInput.style.height = '100%';
-                markdownOutput.style.height = '100%';
-                markdownOutput.style.animation = 'markdownRight 0.2s linear forwards';
-                textInput.style.animation = 'textareaRight 0.2s linear forwards';
 
-            } else if (textInput && markdownOutput && !split) {
-                markdownOutput.style.left = '';
-                textInput.style.width = '100%';
-                textInput.style.animation = '';
-                markdownOutput.style.width = '0%';
-                textInput.style.height = '100%';
-                markdownOutput.style.height = '0%';
-                markdownOutput.style.display = 'none';
+
+
+
+        // Ctrl + Alt + Up / Down / Left / Right
+        if (e.ctrlKey && e.altKey && ['arrowup', 'arrowdown', 'arrowleft', 'arrowright'].includes(e.key.toLocaleLowerCase())) {
+            e.preventDefault();
+            split = !split;
+            if (textInput && markdownOutput) {
+                switch (e.key.toLocaleLowerCase()) {
+                    case 'arrowup':
+                        textInput.style.bottom = '';
+                        markdownOutput.style.top = '';
+                        markdownOutput.style.bottom = split ? '0' : '';
+                        markdownOutput.style.display = split ? 'block' : 'none';
+                        textInput.style.width = '100%';
+                        markdownOutput.style.width = split ? '100%' : '0%';
+                        markdownOutput.style.animation = 'markdownTop 0.2s linear forwards';
+                        textInput.style.animation = split ? 'textareaTop 0.2s linear forwards' : '';
+                        break;
+                    case 'arrowdown':
+                        textInput.style.bottom = '0';
+                        markdownOutput.style.top = split ? '0' : '';
+                        markdownOutput.style.display = split ? 'block' : 'none';
+                        textInput.style.width = '100%';
+                        markdownOutput.style.width = split ? '100%' : '0%';
+                        markdownOutput.style.height = split ? '50%' : '0%';
+                        markdownOutput.style.animation = 'markdownBottom 0.2s linear forwards';
+                        textInput.style.animation = split ? 'textareaBottom 0.2s linear forwards' : '';
+                        break;
+                    case 'arrowleft':
+                        textInput.style.right = '';
+                        markdownOutput.style.left = '';
+                        textInput.style.left = '0';
+                        markdownOutput.style.right = split ? '0' : '';
+                        markdownOutput.style.display = split ? 'block' : 'none';
+                        markdownOutput.style.width = split ? '50%' : '0%';
+                        textInput.style.height = '100%';
+                        markdownOutput.style.height = split ? '100%' : '0%';
+                        markdownOutput.style.animation = 'markdownLeft 0.2s linear forwards';
+                        textInput.style.animation = split ? 'textareaLeft 0.2s linear forwards' : '';
+                        break;
+                    case 'arrowright':
+                        textInput.style.left = '';
+                        markdownOutput.style.right = '';
+                        textInput.style.right = '0';
+                        markdownOutput.style.left = split ? '0' : '';
+                        markdownOutput.style.display = split ? 'block' : 'none';
+                        markdownOutput.style.width = split ? '50%' : '0%';
+                        textInput.style.height = '100%';
+                        markdownOutput.style.height = split ? '100%' : '0%';
+                        markdownOutput.style.animation = 'markdownRight 0.2s linear forwards';
+                        textInput.style.animation = split ? 'textareaRight 0.2s linear forwards' : '';
+                        break;
+                    default: markdownOutput.style.display = split ? 'block' : 'none';
+                };
             };
         };
         

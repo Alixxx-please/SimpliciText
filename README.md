@@ -18,7 +18,7 @@ TL;DR:
   </p>
   <p align="center">
     <img src="./screenshots/tqbfjotld.png">
-    Markdown capabilities <i>(and other stats (bottom right))</i>!
+    Markdown capabilities <i>(and other metrics (bottom right))</i>!
   </p>
 </details>
 
