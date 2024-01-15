@@ -107,11 +107,6 @@ async function shortcuts() {
         };
 
         // Ctrl + Alt + Up / Down / Left / Right
-
-
-
-
-        // Ctrl + Alt + Up / Down / Left / Right
         if (e.ctrlKey && e.altKey && ['arrowup', 'arrowdown', 'arrowleft', 'arrowright'].includes(e.key.toLocaleLowerCase())) {
             e.preventDefault();
             split = !split;
